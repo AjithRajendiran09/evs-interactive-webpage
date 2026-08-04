@@ -702,6 +702,50 @@
       .nav-links { display: none; }
       .sdg-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
     }
+    /* ═══════════════ TEAM SCOREBOARD ═══════════════ */
+    .scoreboard-section {
+      margin-top: 3rem; padding: 2rem; background: var(--bg-card);
+      border-radius: var(--radius); border: 2px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+    }
+    .sb-title { text-align: center; font-family: 'Outfit'; font-size: 2rem; font-weight: 900; color: var(--accent-amber); margin-bottom: 2rem; }
+    .sb-teams { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .sb-team {
+      flex: 1; min-width: 250px; background: rgba(255,255,255,0.03);
+      padding: 1.5rem; border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.1);
+      text-align: center; transition: transform 0.3s;
+    }
+    .sb-team.team-1 { border-top: 4px solid var(--accent-blue); }
+    .sb-team.team-2 { border-top: 4px solid var(--accent-green); }
+    .sb-team-name {
+      width: 100%; background: transparent; border: none; border-bottom: 2px dashed rgba(255,255,255,0.2);
+      color: white; font-family: 'Outfit'; font-size: 1.5rem; font-weight: 800; text-align: center;
+      padding: 0.5rem; margin-bottom: 1rem; outline: none; transition: border-color 0.3s;
+    }
+    .sb-team-name:focus { border-bottom-color: var(--accent-amber); }
+    .sb-score {
+      font-size: 4rem; font-family: 'Outfit'; font-weight: 900; margin: 1rem 0;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;
+    }
+    .sb-team.team-1 .sb-score { color: var(--accent-blue); }
+    .sb-team.team-2 .sb-score { color: var(--accent-green); }
+    .sb-controls { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .sb-btn {
+      padding: 0.5rem 0.8rem; border: none; border-radius: var(--radius-sm);
+      font-weight: 800; cursor: pointer; font-family: 'Outfit'; transition: all 0.2s;
+    }
+    .sb-btn.add { background: rgba(52,211,153,0.2); color: var(--accent-green); }
+    .sb-btn.add:hover { background: var(--accent-green); color: #012; transform: translateY(-2px); }
+    .sb-btn.sub { background: rgba(248,113,113,0.2); color: var(--accent-coral); }
+    .sb-btn.sub:hover { background: var(--accent-coral); color: #012; transform: translateY(-2px); }
+    
+    .sb-announce {
+      display: block; margin: 2rem auto 0; padding: 1rem 2rem;
+      background: var(--gradient-purple); border: none; border-radius: var(--radius-pill);
+      color: white; font-size: 1.2rem; font-weight: 900; font-family: 'Outfit';
+      cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .sb-announce:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(167,139,250,0.4); }
   </style>
 </head>
 <body>
@@ -1683,6 +1727,36 @@
         <div style="margin-top:0.8rem;"><button class="jumble-ctrl-btn" onclick="wsResetSelection()">↩ Clear Selection</button></div>
         <div class="game-feedback info" id="wsFeedback">Click letters in order to spell a word, then it auto-checks!</div>
       </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TEAM SCOREBOARD
+    ══════════════════════════════════════════ -->
+    <section id="scoreboard" class="scoreboard-section reveal">
+      <div class="sb-title">🏆 Live Team Scoreboard</div>
+      <div class="sb-teams">
+        <div class="sb-team team-1">
+          <input type="text" class="sb-team-name" id="team1Name" value="Team Alpha" />
+          <div class="sb-score" id="team1Score">0</div>
+          <div class="sb-controls">
+            <button class="sb-btn add" onclick="updateScore(1, 10)">+10</button>
+            <button class="sb-btn add" onclick="updateScore(1, 25)">+25</button>
+            <button class="sb-btn add" onclick="updateScore(1, 50)">+50</button>
+            <button class="sb-btn sub" onclick="updateScore(1, -10)">-10</button>
+          </div>
+        </div>
+        <div class="sb-team team-2">
+          <input type="text" class="sb-team-name" id="team2Name" value="Team Beta" />
+          <div class="sb-score" id="team2Score">0</div>
+          <div class="sb-controls">
+            <button class="sb-btn add" onclick="updateScore(2, 10)">+10</button>
+            <button class="sb-btn add" onclick="updateScore(2, 25)">+25</button>
+            <button class="sb-btn add" onclick="updateScore(2, 50)">+50</button>
+            <button class="sb-btn sub" onclick="updateScore(2, -10)">-10</button>
+          </div>
+        </div>
+      </div>
+      <button class="sb-announce" onclick="announceWinner()">🎉 Announce Winner!</button>
     </section>
   </main>
 
@@ -2809,6 +2883,39 @@
 
     // Initial display update
     updateXPDisplay();
+    /* ═══════════════ SCOREBOARD LOGIC ═══════════════ */
+    let scores = { 1: 0, 2: 0 };
+    window.updateScore = function(team, amount) {
+      scores[team] += amount;
+      if(scores[team] < 0) scores[team] = 0;
+      const el = document.getElementById(`team${team}Score`);
+      el.textContent = scores[team];
+      el.style.transform = 'scale(1.3)';
+      setTimeout(() => el.style.transform = 'scale(1)', 200);
+    };
+    
+    window.announceWinner = function() {
+      const name1 = document.getElementById('team1Name').value || 'Team 1';
+      const name2 = document.getElementById('team2Name').value || 'Team 2';
+      let winnerText = '';
+      if (scores[1] > scores[2]) winnerText = `🏆 ${name1.toUpperCase()} WINS!`;
+      else if (scores[2] > scores[1]) winnerText = `🏆 ${name2.toUpperCase()} WINS!`;
+      else winnerText = "🤝 IT'S A TIE!";
+      
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;font-family:Outfit;cursor:pointer;';
+      overlay.innerHTML = `
+        <div style="font-size:4rem;color:var(--accent-amber);font-weight:900;text-align:center;text-shadow:0 0 30px rgba(251,191,36,0.6);animation:pulse-glow 2s infinite">${winnerText}</div>
+        <div style="font-size:2.5rem;margin-top:1.5rem;color:var(--text);font-weight:700;">${scores[1]} - ${scores[2]}</div>
+        <div style="font-size:1rem;margin-top:3rem;color:var(--text-muted);opacity:0.8;">(Click anywhere to close)</div>
+      `;
+      overlay.onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+      
+      spawnConfetti();
+      setTimeout(spawnConfetti, 800);
+      setTimeout(spawnConfetti, 1600);
+    };
   </script>
 </body>
 </html>
