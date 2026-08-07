@@ -248,6 +248,29 @@
     }
     .section-image img { width: 100%; display: block; }
 
+
+    /* ═══════════════ PAGE LAYOUT ═══════════════ */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    
+    .sidebar-column {
+      position: sticky;
+      top: 100px;
+    }
+    
+    @media (max-width: 1024px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-column {
+        position: static;
+      }
+    }
+
     /* ═══════════════ GAME CONTAINERS ═══════════════ */
     .game-container {
       position: relative;
@@ -288,10 +311,6 @@
     .game-start-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
-    }
-      background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(56,189,248,0.08));
-      border: 1px solid rgba(167,139,250,0.25); border-radius: var(--radius);
-      padding: 2rem; margin: 2rem 0;
     }
     .game-top-bar {
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -834,7 +853,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container page-layout">
 
     <!-- ══════════════════════════════════════════
          HERO SECTION
