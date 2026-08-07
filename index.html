@@ -248,29 +248,6 @@
     }
     .section-image img { width: 100%; display: block; }
 
-
-    /* ═══════════════ PAGE LAYOUT ═══════════════ */
-    .page-layout {
-      display: grid;
-      grid-template-columns: 3fr 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-    
-    .sidebar-column {
-      position: sticky;
-      top: 100px;
-    }
-    
-    @media (max-width: 1024px) {
-      .page-layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar-column {
-        position: static;
-      }
-    }
-
     /* ═══════════════ GAME CONTAINERS ═══════════════ */
     .game-container {
       background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(56,189,248,0.08));
@@ -807,7 +784,7 @@
     </div>
   </header>
 
-  <main class="container page-layout">
+  <main class="container">
 
     <!-- ══════════════════════════════════════════
          HERO SECTION
