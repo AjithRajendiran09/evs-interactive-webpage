@@ -3691,7 +3691,7 @@
 
     /* ═══════════════ GAME: FOOD WEB QUIZ ═══════════════ */
     (function() {
-      const questions = [
+      let questions = [
         { q: 'What is the main difference between a food chain and a food web?', opts: ['Food webs are shorter', 'Food webs have interconnected chains', 'Food chains have more species', 'Food webs only exist in water'], ans: 1 },
         { q: 'What is a keystone species?', opts: ['The largest animal', 'A species critical to ecosystem balance', 'An extinct animal', 'A type of plant'], ans: 1 },
         { q: 'What happens in a trophic cascade when wolves are removed?', opts: ['Plants grow more', 'Elk overpopulate and destroy vegetation', 'Fish populations increase', 'Nothing changes'], ans: 1 },
@@ -3699,6 +3699,8 @@
         { q: 'Which organism can belong to multiple food chains in a web?', opts: ['Only producers', 'Only apex predators', 'Almost any organism', 'Only decomposers'], ans: 2 },
         { q: 'What percentage of energy is lost at each trophic level?', opts: ['10%', '50%', '90%', '25%'], ans: 2 }
       ];
+      // Shuffle questions
+      questions = questions.sort(() => Math.random() - 0.5);
       let current = 0, score = 0;
 
       function loadFWQ() {
@@ -3711,13 +3713,19 @@
         document.getElementById('fwqQuestion').textContent = `Q${current + 1}. ${q.q}`;
         const optsDiv = document.getElementById('fwqOptions');
         optsDiv.innerHTML = '';
-        q.opts.forEach((opt, i) => {
+        
+        // Shuffle options and track the correct answer
+        const correctOptStr = q.opts[q.ans];
+        const shuffledOpts = [...q.opts].sort(() => Math.random() - 0.5);
+        const newAns = shuffledOpts.indexOf(correctOptStr);
+
+        shuffledOpts.forEach((opt, i) => {
           const btn = document.createElement('button');
           btn.className = 'game-btn';
           btn.textContent = opt;
           btn.addEventListener('click', () => {
             optsDiv.querySelectorAll('.game-btn').forEach(b => b.disabled = true);
-            if (i === q.ans) {
+            if (i === newAns) {
               btn.classList.add('correct');
               score++;
               document.getElementById('fwqScore').textContent = score;
@@ -3725,8 +3733,8 @@
               setFeedback('fwqFeedback', '✅ Correct!', 'success');
             } else {
               btn.classList.add('wrong');
-              optsDiv.children[q.ans].classList.add('correct');
-              setFeedback('fwqFeedback', `❌ Wrong! Answer: ${q.opts[q.ans]}`, 'error');
+              optsDiv.children[newAns].classList.add('correct');
+              setFeedback('fwqFeedback', `❌ Wrong! Answer: ${shuffledOpts[newAns]}`, 'error');
             }
             current++;
             setTimeout(loadFWQ, 1500);
@@ -3739,7 +3747,7 @@
 
     /* ═══════════════ GAME: ECOSYSTEM BIOTIC/ABIOTIC SORTER ═══════════════ */
     (function() {
-      const items = [
+      let items = [
         { text: '🌳 Oak Tree', biotic: true },
         { text: '☀️ Sunlight', biotic: false },
         { text: '🐛 Earthworm', biotic: true },
@@ -3751,6 +3759,8 @@
         { text: '🐝 Honeybee', biotic: true },
         { text: '💨 Wind', biotic: false }
       ];
+      // Shuffle items
+      items = items.sort(() => Math.random() - 0.5);
       let current = 0, score = 0;
 
       function loadEcoSort() {
@@ -3781,7 +3791,7 @@
     })();
 
     /* ═══════════════ GAME: BIODIVERSITY TRUE/FALSE ═══════════════ */
-    const bioTfQuestions = [
+    let bioTfQuestions = [
       { statement: 'India is one of the 17 megadiverse countries in the world.', answer: true },
       { statement: 'Genetic diversity refers to the variety of ecosystems in a region.', answer: false },
       { statement: 'The Western Ghats is a globally recognized biodiversity hotspot.', answer: true },
@@ -3791,6 +3801,8 @@
       { statement: 'Bees are responsible for pollinating about 75% of food crops.', answer: true },
       { statement: 'Invasive species help increase biodiversity in an ecosystem.', answer: false }
     ];
+    // Shuffle questions
+    bioTfQuestions = bioTfQuestions.sort(() => Math.random() - 0.5);
     let bioTfCurrent = 0, bioTfScore = 0, bioTfStreak = 0;
 
     function loadBioTF() {
