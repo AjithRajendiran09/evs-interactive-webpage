@@ -250,26 +250,76 @@
 
     /* ═══════════════ GAME CONTAINERS ═══════════════ */
     .game-container {
+      position: relative;
       background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(56,189,248,0.08));
       border: 1px solid rgba(167,139,250,0.25); border-radius: var(--radius);
       padding: 2rem; margin: 2rem 0;
     }
+    
+    .game-start-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(17, 24, 39, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      transition: opacity 0.3s ease;
+    }
+    
+    .game-start-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .game-start-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+      background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(56,189,248,0.08));
+      border: 1px solid rgba(167,139,250,0.25); border-radius: var(--radius);
+      padding: 2rem; margin: 2rem 0;
+    }
+    .game-top-bar {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 1.2rem; gap: 1rem; flex-wrap: wrap;
+    }
     .game-header {
-      display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0;
     }
     .game-header .game-icon {
       width: 44px; height: 44px; border-radius: 14px; display: flex;
       align-items: center; justify-content: center; font-size: 1.3rem;
-      background: var(--gradient-purple); color: white;
+      background: var(--gradient-purple); color: white; flex-shrink: 0;
     }
     .game-header h3 { font-size: 1.1rem; }
     .game-header p { font-size: 0.85rem; color: var(--text-muted); }
-    .game-score {
+    
+    .game-stats-area {
+      display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .game-score, .game-timer {
       display: inline-flex; align-items: center; gap: 0.4rem;
       background: rgba(255,255,255,0.08); padding: 0.4rem 0.9rem;
       border-radius: var(--radius-pill); font-weight: 700; font-size: 0.85rem;
-      color: var(--accent-amber); margin-bottom: 1rem;
+      margin-bottom: 0; white-space: nowrap;
     }
+    .game-score { color: var(--accent-amber); }
+    .game-timer { color: var(--accent-coral); font-variant-numeric: tabular-nums; }
+    .game-timer.warning { animation: popCorrect 1s infinite alternate; }
 
     /* Game buttons */
     .game-btn-grid { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 1rem; }
@@ -950,14 +1000,20 @@
 
       <!-- GAME: JUMBLE WORD CHALLENGE -->
       <div class="game-container" id="game-jumble1">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-amber);">🔤</div>
           <div>
             <h3>Jumble Word Challenge — EVS Terms</h3>
             <p>Click the scrambled letters in the right order to form the EVS word!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Solved: <span id="jumble1Score">0</span> / 5</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-jumble1">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Solved: <span id="jumble1Score">0</span> / 5</div>
+        </div>
+      </div>
         <div class="jumble-area" id="jumble1Area">
           <div class="jumble-hint" id="jumble1Hint">Loading...</div>
           <div class="jumble-scrambled" id="jumble1Letters"></div>
@@ -1114,14 +1170,20 @@
 
       <!-- GAME 1: DISCIPLINE MATCHER -->
       <div class="game-container" id="game-match">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon">🎮</div>
           <div>
             <h3>Game 1: Discipline Matcher</h3>
             <p>Match each discipline to its EVS contribution!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="matchScore">0</span> / 5</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-match">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="matchScore">0</span> / 5</div>
+        </div>
+      </div>
 
         <div class="match-game">
           <div class="match-column">
@@ -1146,14 +1208,20 @@
 
       <!-- GAME: CAUSE & EFFECT CHAIN -->
       <div class="game-container" id="game-causeeffect">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-blue);">🔗</div>
           <div>
             <h3>Cause & Effect Chain — Daily Life Edition</h3>
             <p>What happens when you do these everyday things? Pick the correct environmental effect!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="ceScore">0</span> / 8</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-causeeffect">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="ceScore">0</span> / 8</div>
+        </div>
+      </div>
         <div class="cause-effect-game">
           <div class="ce-scenario" id="ceScenario">
             <div class="ce-emoji" id="ceEmoji">🚗</div>
@@ -1283,14 +1351,20 @@
 
       <!-- GAME 2: SCOPE QUIZ -->
       <div class="game-container" id="game-quiz">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-amber);">🎮</div>
           <div>
             <h3>Game 2: Scope Explorer Quiz</h3>
             <p>Test your knowledge with timed multiple-choice questions!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="quizScore">0</span> / 5</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-quiz">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="quizScore">0</span> / 5</div>
+        </div>
+      </div>
         <div id="quizArea">
           <div id="quizQuestion" class="tf-question" style="font-weight: 600;">Loading question...</div>
           <div class="game-btn-grid" id="quizOptions"></div>
@@ -1300,14 +1374,20 @@
 
       <!-- GAME: DAILY LIFE SCENARIO -->
       <div class="game-container" id="game-scenario">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-green);">🏠</div>
           <div>
             <h3>Daily Life Eco Scenarios 🏡</h3>
             <p>You face these situations every day — what's the best eco-friendly choice?</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="scenarioScore">0</span> / 6</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-scenario">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="scenarioScore">0</span> / 6</div>
+        </div>
+      </div>
         <div class="scenario-card" id="scenarioCard">
           <div class="sc-emoji" id="scEmoji">🏠</div>
           <div class="sc-situation" id="scSituation">Loading...</div>
@@ -1420,14 +1500,20 @@
 
       <!-- GAME 3: TRUE/FALSE RAPID FIRE -->
       <div class="game-container" id="game-tf">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-coral);">🎮</div>
           <div>
             <h3>Game 3: True or False Rapid Fire 🔥</h3>
             <p>How fast can you sort the facts? Build your streak!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="tfScore">0</span> / 8 &nbsp;&nbsp; 🔥 Streak: <span id="tfStreakDisplay">0</span></div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-tf">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="tfScore">0</span> / 8 &nbsp;&nbsp; 🔥 Streak: <span id="tfStreakDisplay">0</span></div>
+        </div>
+      </div>
         <div class="tf-streak" id="tfStreakMsg"></div>
         <div class="tf-question" id="tfQuestion">Loading...</div>
         <div class="tf-buttons">
@@ -1439,14 +1525,20 @@
 
       <!-- GAME: REBUS PUZZLE -->
       <div class="game-container" id="game-rebus">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-coral);">🧩</div>
           <div>
             <h3>Rebus Puzzle — Combine & Guess! 🔤</h3>
             <p>Each card has a syllable — combine them all to find the hidden EVS word!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Solved: <span id="rebusScore">0</span> / 12</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-rebus">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Solved: <span id="rebusScore">0</span> / 12</div>
+        </div>
+      </div>
 
         <div class="rebus-container">
           <div class="rebus-puzzle-card" id="rebusPuzzleCard">
@@ -1643,14 +1735,20 @@
 
       <!-- GAME: BUILD THE FOOD CHAIN -->
       <div class="game-container" id="game-foodchain">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-green);">🔗</div>
           <div>
             <h3>Game: Build the Food Chain! 🔗</h3>
             <p>Click the organisms in the correct order to build a complete food chain!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="fcScore">0</span> / 4</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-foodchain">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="fcScore">0</span> / 4</div>
+        </div>
+      </div>
         <div id="fcArea">
           <div class="tf-question" id="fcPrompt" style="font-weight: 600;">Arrange these organisms in the correct food chain order:</div>
           <div class="jumble-answer" id="fcChain" style="min-height: 60px; margin-bottom: 1rem;"></div>
@@ -1792,14 +1890,20 @@
 
       <!-- GAME: FOOD WEB QUIZ -->
       <div class="game-container" id="game-foodwebquiz">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-blue);">🕸️</div>
           <div>
             <h3>Game: Food Web Quiz 🕸️</h3>
             <p>Test your knowledge of food webs and feeding relationships!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="fwqScore">0</span> / 6</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-foodwebquiz">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="fwqScore">0</span> / 6</div>
+        </div>
+      </div>
         <div id="fwqArea">
           <div id="fwqQuestion" class="tf-question" style="font-weight: 600;">Loading question...</div>
           <div class="game-btn-grid" id="fwqOptions"></div>
@@ -1976,14 +2080,20 @@
 
       <!-- GAME: ECOSYSTEM SORTER -->
       <div class="game-container" id="game-ecosorter">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-amber);">🌍</div>
           <div>
             <h3>Game: Biotic or Abiotic? 🌍</h3>
             <p>Sort each item as a Biotic (living) or Abiotic (non-living) component!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="ecoSortScore">0</span> / 10</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-ecosorter">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="ecoSortScore">0</span> / 10</div>
+        </div>
+      </div>
         <div class="sorter-layout">
           <div class="sorter-item-display" id="ecoSortItem">Loading...</div>
           <div class="sorter-buttons">
@@ -2164,14 +2274,20 @@
 
       <!-- GAME: BIODIVERSITY TRUE/FALSE -->
       <div class="game-container" id="game-biotf">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-coral);">🦋</div>
           <div>
             <h3>Game: Biodiversity True or False 🦋</h3>
             <p>Test your biodiversity knowledge — are these facts true or false?</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="bioTfScore">0</span> / 8  &nbsp;&nbsp; 🔥 Streak: <span id="bioTfStreak">0</span></div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-biotf">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="bioTfScore">0</span> / 8  &nbsp;&nbsp; 🔥 Streak: <span id="bioTfStreak">0</span></div>
+        </div>
+      </div>
         <div class="tf-question" id="bioTfQuestion">Loading...</div>
         <div class="tf-buttons">
           <button class="tf-btn true-btn" id="bioTfTrue" onclick="answerBioTF(true)">✅ TRUE</button>
@@ -2299,14 +2415,20 @@
 
       <!-- GAME 4: SUSTAINABILITY SORTER -->
       <div class="game-container" id="game-sorter">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: var(--gradient-green);">🎮</div>
           <div>
             <h3>Game 4: Sustainability Sorter ♻️</h3>
             <p>Is this action Sustainable or Unsustainable? Sort them correctly!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Score: <span id="sorterScore">0</span> / 10</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-sorter">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Score: <span id="sorterScore">0</span> / 10</div>
+        </div>
+      </div>
 
         <div class="sorter-layout">
           <div class="sorter-item-display" id="sorterItem">Loading...</div>
@@ -2320,6 +2442,7 @@
 
       <!-- GAME: CROSSWORD PUZZLE -->
       <div class="game-container" id="game-crossword">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: linear-gradient(135deg, #f472b6, #a78bfa);">✏️</div>
           <div>
@@ -2421,22 +2544,33 @@
             <h3>Game 5: SDG Memory Match 🧠</h3>
             <p>Flip cards and match each SDG number to its name!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Matches: <span id="memoryScore">0</span> / 6 &nbsp;&nbsp; Moves: <span id="memoryMoves">0</span></div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-crossword">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Matches: <span id="memoryScore">0</span> / 6 &nbsp;&nbsp; Moves: <span id="memoryMoves">0</span></div>
+        </div>
+      </div>
         <div class="memory-grid" id="memoryGrid"></div>
         <div class="game-feedback info" id="memoryFeedback">Find matching pairs — click two cards to reveal them!</div>
       </div>
 
       <!-- GAME: WORD SEARCH -->
       <div class="game-container" id="game-wordsearch">
+      <div class="game-top-bar">
         <div class="game-header">
           <div class="game-icon" style="background: linear-gradient(135deg, #fbbf24, #f97316);">🔎</div>
           <div>
             <h3>Word Search — Find Hidden SDG Words!</h3>
             <p>Click letters in the grid to find words related to the SDGs. Words can be horizontal or vertical!</p>
           </div>
+        
         </div>
-        <div class="game-score">⭐ Found: <span id="wsScore">0</span> / 6</div>
+        <div class="game-stats-area">
+          <div class="game-timer" id="timer-wordsearch">⏳ <span>--s</span></div>
+          <div class="game-score">⭐ Found: <span id="wsScore">0</span> / 6</div>
+        </div>
+      </div>
         <div class="wordsearch-wrapper">
           <div class="ws-grid" id="wsGrid" style="grid-template-columns: repeat(10, 38px);"></div>
           <div class="ws-wordlist">
@@ -2630,6 +2764,100 @@
       }
     }
 
+    class GameTimer {
+      constructor(id, duration, onTimeUp) {
+        this.element = document.querySelector(`#${id} span`);
+        this.container = document.getElementById(id);
+        this.gameContainer = this.container ? this.container.closest('.game-container') : null;
+        this.duration = duration;
+        this.timeLeft = duration;
+        this.onTimeUp = onTimeUp;
+        this.interval = null;
+        this.started = false;
+        
+        if (this.element) this.updateDisplay();
+        
+        if (this.gameContainer) {
+          this.initOverlay();
+        }
+      }
+      
+      initOverlay() {
+        // Prevent adding multiple overlays
+        if (this.gameContainer.querySelector('.game-start-overlay')) return;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'game-start-overlay';
+        overlay.innerHTML = '<button class="game-start-btn">Start Game</button>';
+        
+        this.gameContainer.style.position = 'relative';
+        this.gameContainer.appendChild(overlay);
+        
+        // Disable pointer events and blur other children
+        Array.from(this.gameContainer.children).forEach(child => {
+          if (child !== overlay) {
+            child.style.pointerEvents = 'none';
+            child.style.filter = 'blur(4px)';
+          }
+        });
+        
+        const btn = overlay.querySelector('.game-start-btn');
+        btn.addEventListener('click', () => {
+          overlay.style.opacity = '0';
+          setTimeout(() => overlay.remove(), 300);
+          
+          Array.from(this.gameContainer.children).forEach(child => {
+            if (child !== overlay) {
+              child.style.pointerEvents = '';
+              child.style.filter = '';
+              child.style.transition = 'filter 0.3s ease';
+            }
+          });
+          
+          this.started = true;
+          this._doStart();
+        });
+      }
+
+      start() {
+        // Wait for explicit start from overlay
+        if (!this.started) return; 
+        this._doStart();
+      }
+
+      _doStart() {
+        if (this.interval) return;
+        this.interval = setInterval(() => {
+          this.timeLeft--;
+          this.updateDisplay();
+          if (this.timeLeft <= 10 && this.timeLeft > 0) {
+            if (this.container) this.container.classList.add('warning');
+          } else {
+            if (this.container) this.container.classList.remove('warning');
+          }
+          if (this.timeLeft <= 0) {
+            this.stop();
+            if (this.onTimeUp) this.onTimeUp();
+          }
+        }, 1000);
+      }
+      stop() {
+        if (this.interval) clearInterval(this.interval);
+        this.interval = null;
+        if (this.container) this.container.classList.remove('warning');
+      }
+      reset() {
+        this.stop();
+        this.timeLeft = this.duration;
+        this.updateDisplay();
+        if (this.started) this._doStart();
+      }
+      updateDisplay() {
+        if (!this.element) return;
+        this.element.textContent = this.timeLeft + 's';
+      }
+    }
+
     /* ═══════════════ PROGRESS BAR ═══════════════ */
     function updateProgress() {
       const total = 10;
@@ -2668,6 +2896,8 @@
     });
 
     /* ═══════════════ GAME 1: DISCIPLINE MATCHER ═══════════════ */
+    const timer_match = new GameTimer('timer-match', 45, () => { setFeedback('matchFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#game-match .match-item').forEach(b => b.classList.add('matched')); });
+    timer_match.start();
     (function() {
       let selectedLeft = null;
       let matchScore = 0;
@@ -2692,7 +2922,8 @@
               setFeedback('matchFeedback', '✅ Correct match! Great job!', 'success');
 
               if (matchScore === 5) {
-                unlockBadge('multi');
+                timer_match.stop();
+          unlockBadge('multi');
                 setFeedback('matchFeedback', '🎉 All matched! You earned the Discipline Master badge!', 'success');
               }
             } else {
@@ -2706,6 +2937,7 @@
     })();
 
     /* ═══════════════ GAME 2: SCOPE QUIZ ═══════════════ */
+    const timer_quiz = new GameTimer('timer-quiz', 15, () => { setFeedback('quizFeedback', '⏳ Time is up! Reload the page to try again.', 'error'); document.querySelectorAll('#quizOptions .game-btn').forEach(b => b.disabled = true); });
     (function() {
       const questions = [
         { q: 'Which of the following is a non-renewable resource?', opts: ['Solar Energy', 'Wind Power', 'Coal', 'Tidal Energy'], ans: 2 },
@@ -2717,9 +2949,14 @@
       let current = 0, score = 0;
 
       function loadQuestion() {
+
+
+        timer_quiz.reset();
+        timer_quiz.start();
         if (current >= questions.length) {
           document.getElementById('quizArea').innerHTML = '<div class="tf-question" style="font-weight:700;">🎉 Quiz Complete! You scored ' + score + '/' + questions.length + '</div>';
-          if (score >= 3) unlockBadge('scope');
+          if (score >= 3) timer_quiz.stop();
+          unlockBadge('scope');
           return;
         }
         const q = questions[current];
@@ -2766,12 +3003,17 @@
     ];
     let tfCurrent = 0, tfScore = 0, tfStreak = 0;
 
-    function loadTF() {
+    const timer_tf = new GameTimer('timer-tf', 10, () => { setFeedback('tfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('tfTrue').disabled = true; document.getElementById('tfFalse').disabled = true; });
+      function loadTF() {
+
+        timer_tf.reset();
+        timer_tf.start();
       if (tfCurrent >= tfQuestions.length) {
         document.getElementById('tfQuestion').textContent = `🎉 Finished! You scored ${tfScore}/${tfQuestions.length}`;
         document.getElementById('tfTrue').disabled = true;
         document.getElementById('tfFalse').disabled = true;
-        if (tfScore >= 5) unlockBadge('importance');
+        if (tfScore >= 5) timer_tf.stop();
+          unlockBadge('importance');
         return;
       }
       document.getElementById('tfQuestion').textContent = tfQuestions[tfCurrent].statement;
@@ -2813,11 +3055,14 @@
     ];
     let sorterCurrent = 0, sorterScore = 0;
 
-    function loadSorter() {
+    const timer_sorter = new GameTimer('timer-sorter', 45, () => { setFeedback('sorterFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#game-sorter .sort-btn').forEach(b => b.disabled = true); });
+      function loadSorter() {
+        timer_sorter.start();
       if (sorterCurrent >= sorterItems.length) {
         document.getElementById('sorterItem').textContent = `🎉 Finished! You sorted ${sorterScore}/${sorterItems.length} correctly!`;
         document.querySelectorAll('.sort-btn').forEach(b => b.disabled = true);
-        if (sorterScore >= 7) unlockBadge('sustain');
+        if (sorterScore >= 7) timer_sorter.stop();
+          unlockBadge('sustain');
         return;
       }
       document.getElementById('sorterItem').textContent = sorterItems[sorterCurrent].text;
@@ -2877,7 +3122,9 @@
     });
 
     /* ═══════════════ GAME 5: SDG MEMORY MATCH ═══════════════ */
+    const timer_memory = new GameTimer('timer-memory', 90, () => { setFeedback('memoryFeedback', '⏳ Time is up! Reload the page to try again.', 'error'); });
     (function() {
+      timer_memory.start();
       const pairs = [
         { id: 'sdg1', a: 'Goal 1', b: 'No Poverty' },
         { id: 'sdg4', a: 'Goal 4', b: 'Quality Education' },
@@ -2936,6 +3183,7 @@
             setFeedback('memoryFeedback', `✅ Match found! ${matched}/6`, 'success');
 
             if (matched === 6) {
+              timer_memory.stop();
               unlockBadge('sdg');
               setFeedback('memoryFeedback', `🎉 All matched in ${moves} moves! You earned the SDG Hero badge!`, 'success');
               spawnConfetti();
@@ -2963,6 +3211,7 @@
 
     /* ═══════════════ GAME: JUMBLE WORD CHALLENGE ═══════════════ */
     (function() {
+      const timer_jumble1 = new GameTimer('timer-jumble1', 20, () => { setFeedback('jumble1Feedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#jumble1Options .game-btn').forEach(b => b.disabled = true); });
       const words = [
         { word: 'ECOLOGY', hint: '🌿 The study of how living things interact with each other and their surroundings — like your garden!' },
         { word: 'RECYCLE', hint: '♻️ What you do with old newspapers, plastic bottles, and cans instead of throwing them away' },
@@ -2979,8 +3228,11 @@
       }
 
       function loadJumble() {
+        timer_jumble1.start();
         if (current >= words.length) {
           document.getElementById('jumble1Area').innerHTML = '<div class="tf-question" style="font-weight:700;">🎉 All words solved! You scored ' + score + '/' + words.length + '</div>';
+          timer_jumble1.stop();
+          unlockBadge('intro');
           return;
         }
         placed = []; letterEls = [];
@@ -3048,6 +3300,7 @@
         renderAnswer();
       };
       window.jumble1Reset = function() {
+        timer_jumble1.reset();
         placed.forEach(p => letterEls[p.srcIndex].classList.remove('used'));
         placed = [];
         renderAnswer();
@@ -3091,7 +3344,9 @@
       ];
       let current = 0, score = 0;
 
+      const timer_causeeffect = new GameTimer('timer-causeeffect', 45, () => { setFeedback('ceFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#game-causeeffect .game-btn').forEach(b => b.disabled = true); });
       function loadCE() {
+        timer_causeeffect.start();
         if (current >= scenarios.length) {
           document.getElementById('ceScenario').innerHTML = '<div class="ce-emoji">🎉</div>Finished! Score: ' + score + '/' + scenarios.length;
           document.getElementById('ceOptions').innerHTML = '';
@@ -3176,7 +3431,11 @@
       ];
       let current = 0, score = 0;
 
+      const timer_scenario = new GameTimer('timer-scenario', 20, () => { setFeedback('scenarioFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#scenarioOptions .game-btn').forEach(b => b.disabled = true); });
       function loadScenario() {
+
+        timer_scenario.reset();
+        timer_scenario.start();
         if (current >= scenarios.length) {
           document.getElementById('scenarioCard').innerHTML = '<div class="sc-emoji">🎉</div><div class="sc-situation">Great job! Score: ' + score + '/' + scenarios.length + '</div><div class="sc-context">You\'re an eco-warrior!</div>';
           document.getElementById('scenarioOptions').innerHTML = '';
@@ -3306,7 +3565,9 @@
 
       let current = 0, score = 0, hintShown = false;
 
+      const timer_rebus = new GameTimer('timer-rebus', 90, () => { setFeedback('rebusFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#rebusOptions .game-btn').forEach(b => b.disabled = true); });
       function loadRebus() {
+        timer_rebus.start();
         if (current >= puzzles.length) {
           document.getElementById('rebusPuzzleCard').innerHTML = '<div style="font-size:3rem;">🎉</div><div style="font-size:1.2rem; font-weight:800; margin-top:0.5rem;">Amazing! You solved all 12 Rebus Puzzles!</div><div style="color:var(--accent-green); font-weight:700; margin-top:0.3rem;">Score: ' + score + '/12</div>';
           document.querySelector('.rebus-input-row').style.display = 'none';
@@ -3388,7 +3649,9 @@
     })();
 
     /* ═══════════════ GAME: CROSSWORD PUZZLE ═══════════════ */
+    const timer_crossword = new GameTimer('timer-crossword', 90, () => { setFeedback('cwFeedback', '⏳ Time is up! Reload the page to try again.', 'error'); document.querySelectorAll('.cw-cell input').forEach(inp => inp.disabled = true); });
     (function() {
+      timer_crossword.start();
       // Grid layout: 11 cols x 7 rows
       // Answers: LIGHT (1-across), TREES (4-across), OZONE (6-across)
       //          CARBON (2-down), RECYCLE (3-down), SOLAR (5-down)
@@ -3488,7 +3751,9 @@
     })();
 
     /* ═══════════════ GAME: WORD SEARCH ═══════════════ */
+    const timer_wordsearch = new GameTimer('timer-wordsearch', 90, () => { setFeedback('wsFeedback', '⏳ Time is up! Reload the page to try again.', 'error'); });
     (function() {
+      timer_wordsearch.start();
       const WORDS = ['WATER', 'PEACE', 'ENERGY', 'HUNGER', 'HEALTH', 'CLIMATE'];
       const ROWS = 8, COLS = 10;
       const gridData = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
@@ -3586,6 +3851,7 @@
           setFeedback('wsFeedback', `✅ Found "${selected}"! ${wsScore}/6`, 'success');
           if (wsScore === 6) {
             setFeedback('wsFeedback', '🎉 All words found! Amazing!', 'success');
+            timer_wordsearch.stop();
             spawnConfetti();
           }
         }
@@ -3600,6 +3866,7 @@
 
     /* ═══════════════ GAME: BUILD THE FOOD CHAIN ═══════════════ */
     (function() {
+      const timer_foodchain = new GameTimer('timer-foodchain', 15, () => { setFeedback('fcFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#fcOptions .game-btn').forEach(b => b.disabled = true); });
       const chains = [
         { name: 'Grassland', organisms: ['🌾 Grass', '🦗 Grasshopper', '🐸 Frog', '🐍 Snake', '🦅 Hawk'] },
         { name: 'Aquatic', organisms: ['🌿 Algae', '🐟 Small Fish', '🐠 Big Fish', '🦈 Shark'] },
@@ -3609,9 +3876,11 @@
       let current = 0, score = 0, placed = [];
 
       function loadFC() {
+        timer_foodchain.start();
         if (current >= chains.length) {
           document.getElementById('fcArea').innerHTML = '<div class="tf-question" style="font-weight:700;">🎉 All food chains built! Score: ' + score + '/' + chains.length + '</div>';
-          if (score >= 3) unlockBadge('foodchain');
+          if (score >= 3) timer_foodchain.stop();
+          unlockBadge('foodchain');
           return;
         }
         placed = [];
@@ -3676,6 +3945,7 @@
         }
       };
       window.fcReset = function() {
+        timer_foodchain.reset();
         placed = [];
         renderFCChain();
         document.querySelectorAll('#fcOptions .game-btn').forEach(b => { b.disabled = false; b.style.opacity = '1'; });
@@ -3691,6 +3961,7 @@
 
     /* ═══════════════ GAME: FOOD WEB QUIZ ═══════════════ */
     (function() {
+      const timer_foodwebquiz = new GameTimer('timer-foodwebquiz', 15, () => { setFeedback('fwqFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#fwqOptions .game-btn').forEach(b => b.disabled = true); });
       let questions = [
         { q: 'What is the main difference between a food chain and a food web?', opts: ['Food webs are shorter', 'Food webs have interconnected chains', 'Food chains have more species', 'Food webs only exist in water'], ans: 1 },
         { q: 'What is a keystone species?', opts: ['The largest animal', 'A species critical to ecosystem balance', 'An extinct animal', 'A type of plant'], ans: 1 },
@@ -3704,9 +3975,14 @@
       let current = 0, score = 0;
 
       function loadFWQ() {
+
+
+        timer_foodwebquiz.reset();
+        timer_foodwebquiz.start();
         if (current >= questions.length) {
           document.getElementById('fwqArea').innerHTML = '<div class="tf-question" style="font-weight:700;">🎉 Quiz Complete! Score: ' + score + '/' + questions.length + '</div>';
-          if (score >= 4) unlockBadge('foodweb');
+          if (score >= 4) timer_foodwebquiz.stop();
+          unlockBadge('foodweb');
           return;
         }
         const q = questions[current];
@@ -3747,6 +4023,7 @@
 
     /* ═══════════════ GAME: ECOSYSTEM BIOTIC/ABIOTIC SORTER ═══════════════ */
     (function() {
+      const timer_ecosorter = new GameTimer('timer-ecosorter', 15, () => { setFeedback('ecoSortFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#game-ecosorter .sort-btn').forEach(b => b.disabled = true); });
       let items = [
         { text: '🌳 Oak Tree', biotic: true },
         { text: '☀️ Sunlight', biotic: false },
@@ -3764,10 +4041,15 @@
       let current = 0, score = 0;
 
       function loadEcoSort() {
+
+
+        timer_ecosorter.reset();
+        timer_ecosorter.start();
         if (current >= items.length) {
           document.getElementById('ecoSortItem').textContent = '🎉 Finished! Score: ' + score + '/' + items.length;
           document.querySelectorAll('#game-ecosorter .sort-btn').forEach(b => b.disabled = true);
-          if (score >= 7) unlockBadge('ecosystem');
+          if (score >= 7) timer_ecosorter.stop();
+          unlockBadge('ecosystem');
           return;
         }
         document.getElementById('ecoSortItem').textContent = items[current].text;
@@ -3791,6 +4073,7 @@
     })();
 
     /* ═══════════════ GAME: BIODIVERSITY TRUE/FALSE ═══════════════ */
+    const timer_biotf = new GameTimer('timer-biotf', 10, () => { setFeedback('bioTfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('bioTfTrue').disabled = true; document.getElementById('bioTfFalse').disabled = true; });
     let bioTfQuestions = [
       { statement: 'India is one of the 17 megadiverse countries in the world.', answer: true },
       { statement: 'Genetic diversity refers to the variety of ecosystems in a region.', answer: false },
@@ -3806,11 +4089,16 @@
     let bioTfCurrent = 0, bioTfScore = 0, bioTfStreak = 0;
 
     function loadBioTF() {
+
+
+      timer_biotf.reset();
+        timer_biotf.start();
       if (bioTfCurrent >= bioTfQuestions.length) {
         document.getElementById('bioTfQuestion').textContent = `🎉 Finished! Score: ${bioTfScore}/${bioTfQuestions.length}`;
         document.getElementById('bioTfTrue').disabled = true;
         document.getElementById('bioTfFalse').disabled = true;
-        if (bioTfScore >= 5) unlockBadge('biodiversity');
+        if (bioTfScore >= 5) timer_biotf.stop();
+          unlockBadge('biodiversity');
         return;
       }
       document.getElementById('bioTfQuestion').textContent = bioTfQuestions[bioTfCurrent].statement;
@@ -3835,9 +4123,6 @@
       setTimeout(loadBioTF, 1200);
     };
     loadBioTF();
-
-    // Auto-unlock intro badge on page load
-    setTimeout(() => { unlockBadge('intro'); }, 3000);
 
     // Initial display update
     updateXPDisplay();
