@@ -3003,7 +3003,7 @@
     ];
     let tfCurrent = 0, tfScore = 0, tfStreak = 0;
 
-    const timer_tf = new GameTimer('timer-tf', 10, () => { setFeedback('tfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('tfTrue').disabled = true; document.getElementById('tfFalse').disabled = true; });
+    const timer_tf = new GameTimer('timer-tf', 15, () => { setFeedback('tfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('tfTrue').disabled = true; document.getElementById('tfFalse').disabled = true; });
       function loadTF() {
 
         timer_tf.reset();
@@ -3211,7 +3211,7 @@
 
     /* ═══════════════ GAME: JUMBLE WORD CHALLENGE ═══════════════ */
     (function() {
-      const timer_jumble1 = new GameTimer('timer-jumble1', 20, () => { setFeedback('jumble1Feedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#jumble1Options .game-btn').forEach(b => b.disabled = true); });
+      const timer_jumble1 = new GameTimer('timer-jumble1', 15, () => { setFeedback('jumble1Feedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#jumble1Options .game-btn').forEach(b => b.disabled = true); });
       const words = [
         { word: 'ECOLOGY', hint: '🌿 The study of how living things interact with each other and their surroundings — like your garden!' },
         { word: 'RECYCLE', hint: '♻️ What you do with old newspapers, plastic bottles, and cans instead of throwing them away' },
@@ -3431,7 +3431,7 @@
       ];
       let current = 0, score = 0;
 
-      const timer_scenario = new GameTimer('timer-scenario', 20, () => { setFeedback('scenarioFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#scenarioOptions .game-btn').forEach(b => b.disabled = true); });
+      const timer_scenario = new GameTimer('timer-scenario', 15, () => { setFeedback('scenarioFeedback', `⏳ Time is up! `, 'error'); document.querySelectorAll('#scenarioOptions .game-btn').forEach(b => b.disabled = true); });
       function loadScenario() {
 
         timer_scenario.reset();
@@ -4073,7 +4073,7 @@
     })();
 
     /* ═══════════════ GAME: BIODIVERSITY TRUE/FALSE ═══════════════ */
-    const timer_biotf = new GameTimer('timer-biotf', 10, () => { setFeedback('bioTfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('bioTfTrue').disabled = true; document.getElementById('bioTfFalse').disabled = true; });
+    const timer_biotf = new GameTimer('timer-biotf', 15, () => { setFeedback('bioTfFeedback', `⏳ Time is up! `, 'error'); document.getElementById('bioTfTrue').disabled = true; document.getElementById('bioTfFalse').disabled = true; });
     let bioTfQuestions = [
       { statement: 'India is one of the 17 megadiverse countries in the world.', answer: true },
       { statement: 'Genetic diversity refers to the variety of ecosystems in a region.', answer: false },
