@@ -1790,22 +1790,7 @@
         </div>
       </div>
 
-      <!-- GAME: FOOD WEB QUIZ -->
-      <div class="game-container" id="game-foodwebquiz">
-        <div class="game-header">
-          <div class="game-icon" style="background: var(--gradient-blue);">🕸️</div>
-          <div>
-            <h3>Game: Food Web Quiz 🕸️</h3>
-            <p>Test your knowledge of food webs and feeding relationships!</p>
-          </div>
-        </div>
-        <div class="game-score">⭐ Score: <span id="fwqScore">0</span> / 6</div>
-        <div id="fwqArea">
-          <div id="fwqQuestion" class="tf-question" style="font-weight: 600;">Loading question...</div>
-          <div class="game-btn-grid" id="fwqOptions"></div>
-        </div>
-        <div class="game-feedback info" id="fwqFeedback">Answer the questions to learn about food webs!</div>
-      </div>
+
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -1974,24 +1959,27 @@
         </div>
       </div>
 
-      <!-- GAME: ECOSYSTEM SORTER -->
-      <div class="game-container" id="game-ecosorter">
+      <!-- GAME: TROPHIC LEVEL SORTER -->
+      <div class="game-container" id="game-trophicsorter">
         <div class="game-header">
-          <div class="game-icon" style="background: var(--gradient-amber);">🌍</div>
+          <div class="game-icon" style="background: var(--gradient-amber);">🦁</div>
           <div>
-            <h3>Game: Biotic or Abiotic? 🌍</h3>
-            <p>Sort each item as a Biotic (living) or Abiotic (non-living) component!</p>
+            <h3>Game: Trophic Level Master 🦁</h3>
+            <p>Classify each organism into its correct trophic level in the ecosystem!</p>
           </div>
         </div>
-        <div class="game-score">⭐ Score: <span id="ecoSortScore">0</span> / 10</div>
+        <div class="game-score">⭐ Score: <span id="trophicScore">0</span> / 10</div>
         <div class="sorter-layout">
-          <div class="sorter-item-display" id="ecoSortItem">Loading...</div>
-          <div class="sorter-buttons">
-            <button class="sort-btn sustainable" onclick="answerEcoSort(true)" style="border-color: rgba(52,211,153,0.4);">🌿 Biotic (Living)</button>
-            <button class="sort-btn unsustainable" onclick="answerEcoSort(false)" style="border-color: rgba(56,189,248,0.4);">💧 Abiotic (Non-Living)</button>
+          <div class="sorter-item-display" id="trophicItem">Loading...</div>
+          <div class="sorter-buttons" style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+            <button class="sort-btn" onclick="answerTrophic('producer')" style="border-color: rgba(52,211,153,0.4); color: var(--accent-green);">🌱 Producer</button>
+            <button class="sort-btn" onclick="answerTrophic('primary')" style="border-color: rgba(56,189,248,0.4); color: var(--accent-blue);">🐛 Primary Consumer</button>
+            <button class="sort-btn" onclick="answerTrophic('secondary')" style="border-color: rgba(251,191,36,0.4); color: var(--accent-amber);">🐸 Secondary Consumer</button>
+            <button class="sort-btn" onclick="answerTrophic('apex')" style="border-color: rgba(248,113,113,0.4); color: var(--accent-coral);">🦅 Apex Predator</button>
+            <button class="sort-btn" onclick="answerTrophic('decomposer')" style="border-color: rgba(167,139,250,0.4); color: var(--accent-purple);">🍄 Decomposer</button>
           </div>
         </div>
-        <div class="game-feedback info" id="ecoSortFeedback">Is it alive or not? Sort them correctly!</div>
+        <div class="game-feedback info" id="trophicFeedback">Where does it belong in the food web?</div>
       </div>
     </section>
 
@@ -2328,15 +2316,15 @@
           </div>
         </div>
         <div class="crossword-layout">
-          <div class="cw-grid" id="cwGrid" style="grid-template-columns: repeat(11, 40px);"></div>
+          <div class="cw-grid" id="cwGrid" style="grid-template-columns: repeat(8, 40px);"></div>
           <div class="cw-clues">
             <h4>📋 Across</h4>
-            <div class="cw-clue"><strong>1.</strong> You turn off the _____ when leaving a room to save energy (5)</div>
-            <div class="cw-clue"><strong>4.</strong> We plant these to give us oxygen and shade (5)</div>
+            <div class="cw-clue"><strong>2.</strong> Reuse, Reduce, and _______ (7)</div>
             <div class="cw-clue"><strong>6.</strong> The layer that protects Earth from UV rays (5)</div>
             <h4 style="margin-top: 1rem;">📋 Down</h4>
-            <div class="cw-clue"><strong>2.</strong> The gas we breathe out and plants absorb — CO₂ is ______ dioxide (6)</div>
-            <div class="cw-clue"><strong>3.</strong> Reuse, Reduce, and _______ (7)</div>
+            <div class="cw-clue"><strong>1.</strong> We plant these to give us oxygen and shade (5)</div>
+            <div class="cw-clue"><strong>3.</strong> The gas we breathe out and plants absorb — CO₂ is ______ dioxide (6)</div>
+            <div class="cw-clue"><strong>4.</strong> You turn off the _____ when leaving a room to save energy (5)</div>
             <div class="cw-clue"><strong>5.</strong> Energy from the sun (5)</div>
           </div>
         </div>
@@ -3389,34 +3377,22 @@
 
     /* ═══════════════ GAME: CROSSWORD PUZZLE ═══════════════ */
     (function() {
-      // Grid layout: 11 cols x 7 rows
-      // Answers: LIGHT (1-across), TREES (4-across), OZONE (6-across)
-      //          CARBON (2-down), RECYCLE (3-down), SOLAR (5-down)
+      // Grid layout: 8 cols x 10 rows
       const grid = [
-        // row 0:  L I G H T . . . . . .
-        // row 1:  . . . . R . . . . . .
-        // row 2:  . C . . E . . . . . .
-        // row 3:  . A . . E . T R E E S
-        // row 4:  . R . . S . . . . . .
-        // row 5:  O Z O N E . S . . . .
-        // row 6:  . O . . . . O . . . .
-        //                      L
-        //                      A
-        //                      R
-        ['L','I','G','H','T','','','','','',''],
-        ['','','','','R','','','','','',''],
-        ['','C','','','E','','','','','',''],
-        ['','A','','','E','','T','R','E','E','S'],
-        ['','R','','','S','','','','','',''],
-        ['O','Z','O','N','E','','S','','','',''],
-        ['','O','','','','','O','','','',''],
-        ['','N','','','','','L','','','',''],
-        ['','','','','','','A','','','',''],
-        ['','','','','','','R','','','','']
+        ['','T','','','','','',''],
+        ['','R','E','C','Y','C','L','E'],
+        ['','E','','A','','','I',''],
+        ['','E','','R','','','G',''],
+        ['','S','','B','','','H',''],
+        ['S','','','O','','','T',''],
+        ['O','Z','O','N','E','','',''],
+        ['L','','','','','','',''],
+        ['A','','','','','','',''],
+        ['R','','','','','','','']
       ];
-      const numbers = { '0,0': '1', '2,1': '2', '1,4': '3', '3,6': '4', '5,6': '5', '5,0': '6' };
+      const numbers = { '0,1': '1', '1,1': '2', '1,3': '3', '1,6': '4', '5,0': '5', '6,0': '6' };
       const cwGridEl = document.getElementById('cwGrid');
-      cwGridEl.style.gridTemplateColumns = 'repeat(11, 40px)';
+      cwGridEl.style.gridTemplateColumns = 'repeat(8, 40px)';
 
       const inputs = [];
       grid.forEach((row, r) => {
@@ -3454,12 +3430,12 @@
       });
 
       function findNextInput(r, c) {
-        for (let nc = c + 1; nc < 11; nc++) {
+        for (let nc = c + 1; nc < 8; nc++) {
           const inp = inputs.find(i => parseInt(i.dataset.row) === r && parseInt(i.dataset.col) === nc);
           if (inp) return inp;
         }
         for (let nr = r + 1; nr < 10; nr++) {
-          for (let nc = 0; nc < 11; nc++) {
+          for (let nc = 0; nc < 8; nc++) {
             const inp = inputs.find(i => parseInt(i.dataset.row) === nr && parseInt(i.dataset.col) === nc);
             if (inp) return inp;
           }
@@ -3689,105 +3665,51 @@
       loadFC();
     })();
 
-    /* ═══════════════ GAME: FOOD WEB QUIZ ═══════════════ */
-    (function() {
-      let questions = [
-        { q: 'What is the main difference between a food chain and a food web?', opts: ['Food webs are shorter', 'Food webs have interconnected chains', 'Food chains have more species', 'Food webs only exist in water'], ans: 1 },
-        { q: 'What is a keystone species?', opts: ['The largest animal', 'A species critical to ecosystem balance', 'An extinct animal', 'A type of plant'], ans: 1 },
-        { q: 'What happens in a trophic cascade when wolves are removed?', opts: ['Plants grow more', 'Elk overpopulate and destroy vegetation', 'Fish populations increase', 'Nothing changes'], ans: 1 },
-        { q: 'Why are food webs more stable than food chains?', opts: ['They have fewer species', 'Multiple food sources prevent total collapse', 'They don\'t need producers', 'They only exist in forests'], ans: 1 },
-        { q: 'Which organism can belong to multiple food chains in a web?', opts: ['Only producers', 'Only apex predators', 'Almost any organism', 'Only decomposers'], ans: 2 },
-        { q: 'What percentage of energy is lost at each trophic level?', opts: ['10%', '50%', '90%', '25%'], ans: 2 }
-      ];
-      // Shuffle questions
-      questions = questions.sort(() => Math.random() - 0.5);
-      let current = 0, score = 0;
 
-      function loadFWQ() {
-        if (current >= questions.length) {
-          document.getElementById('fwqArea').innerHTML = '<div class="tf-question" style="font-weight:700;">🎉 Quiz Complete! Score: ' + score + '/' + questions.length + '</div>';
-          if (score >= 4) unlockBadge('foodweb');
-          return;
-        }
-        const q = questions[current];
-        document.getElementById('fwqQuestion').textContent = `Q${current + 1}. ${q.q}`;
-        const optsDiv = document.getElementById('fwqOptions');
-        optsDiv.innerHTML = '';
-        
-        // Shuffle options and track the correct answer
-        const correctOptStr = q.opts[q.ans];
-        const shuffledOpts = [...q.opts].sort(() => Math.random() - 0.5);
-        const newAns = shuffledOpts.indexOf(correctOptStr);
 
-        shuffledOpts.forEach((opt, i) => {
-          const btn = document.createElement('button');
-          btn.className = 'game-btn';
-          btn.textContent = opt;
-          btn.addEventListener('click', () => {
-            optsDiv.querySelectorAll('.game-btn').forEach(b => b.disabled = true);
-            if (i === newAns) {
-              btn.classList.add('correct');
-              score++;
-              document.getElementById('fwqScore').textContent = score;
-              addXP(15);
-              setFeedback('fwqFeedback', '✅ Correct!', 'success');
-            } else {
-              btn.classList.add('wrong');
-              optsDiv.children[newAns].classList.add('correct');
-              setFeedback('fwqFeedback', `❌ Wrong! Answer: ${shuffledOpts[newAns]}`, 'error');
-            }
-            current++;
-            setTimeout(loadFWQ, 1500);
-          });
-          optsDiv.appendChild(btn);
-        });
-      }
-      loadFWQ();
-    })();
-
-    /* ═══════════════ GAME: ECOSYSTEM BIOTIC/ABIOTIC SORTER ═══════════════ */
+    /* ═══════════════ GAME: TROPHIC LEVEL SORTER ═══════════════ */
     (function() {
       let items = [
-        { text: '🌳 Oak Tree', biotic: true },
-        { text: '☀️ Sunlight', biotic: false },
-        { text: '🐛 Earthworm', biotic: true },
-        { text: '💧 Water', biotic: false },
-        { text: '🍄 Mushroom (Fungi)', biotic: true },
-        { text: '🌡️ Temperature', biotic: false },
-        { text: '🦠 Bacteria', biotic: true },
-        { text: '🪨 Rocks & Minerals', biotic: false },
-        { text: '🐝 Honeybee', biotic: true },
-        { text: '💨 Wind', biotic: false }
+        { text: '🌳 Oak Tree', type: 'producer', explanation: 'Produces its own food via photosynthesis.' },
+        { text: '☀️ Phytoplankton', type: 'producer', explanation: 'Microscopic plants that produce food in oceans.' },
+        { text: '🐛 Caterpillar', type: 'primary', explanation: 'Eats plants directly.' },
+        { text: '🐇 Rabbit', type: 'primary', explanation: 'Herbivore that eats grass and leaves.' },
+        { text: '🐸 Frog', type: 'secondary', explanation: 'Eats insects (primary consumers).' },
+        { text: '🐍 Snake', type: 'secondary', explanation: 'Eats frogs and mice.' },
+        { text: '🦅 Eagle', type: 'apex', explanation: 'Top predator with no natural enemies.' },
+        { text: '🦈 Great White Shark', type: 'apex', explanation: 'Apex predator of the ocean.' },
+        { text: '🍄 Mushroom', type: 'decomposer', explanation: 'Breaks down dead organic matter.' },
+        { text: '🦠 Earthworm', type: 'decomposer', explanation: 'Helps recycle nutrients back into the soil.' }
       ];
       // Shuffle items
       items = items.sort(() => Math.random() - 0.5);
       let current = 0, score = 0;
 
-      function loadEcoSort() {
+      function loadTrophic() {
         if (current >= items.length) {
-          document.getElementById('ecoSortItem').textContent = '🎉 Finished! Score: ' + score + '/' + items.length;
-          document.querySelectorAll('#game-ecosorter .sort-btn').forEach(b => b.disabled = true);
+          document.getElementById('trophicItem').textContent = '🎉 Finished! Score: ' + score + '/' + items.length;
+          document.querySelectorAll('#game-trophicsorter .sort-btn').forEach(b => b.disabled = true);
           if (score >= 7) unlockBadge('ecosystem');
           return;
         }
-        document.getElementById('ecoSortItem').textContent = items[current].text;
+        document.getElementById('trophicItem').textContent = items[current].text;
       }
 
-      window.answerEcoSort = function(isBiotic) {
+      window.answerTrophic = function(selectedType) {
         if (current >= items.length) return;
-        const correct = items[current].biotic === isBiotic;
+        const correct = items[current].type === selectedType;
         if (correct) {
           score++;
-          addXP(12);
-          setFeedback('ecoSortFeedback', '✅ Correct! ' + (items[current].biotic ? 'It\'s living!' : 'It\'s non-living!'), 'success');
+          addXP(15);
+          setFeedback('trophicFeedback', '✅ Correct! ' + items[current].explanation, 'success');
         } else {
-          setFeedback('ecoSortFeedback', '❌ Wrong! ' + items[current].text + ' is ' + (items[current].biotic ? 'BIOTIC (living)' : 'ABIOTIC (non-living)'), 'error');
+          setFeedback('trophicFeedback', '❌ Wrong! It\'s a ' + items[current].type.toUpperCase() + '. ' + items[current].explanation, 'error');
         }
-        document.getElementById('ecoSortScore').textContent = score;
+        document.getElementById('trophicScore').textContent = score;
         current++;
-        setTimeout(loadEcoSort, 1000);
+        setTimeout(loadTrophic, 2500);
       };
-      loadEcoSort();
+      loadTrophic();
     })();
 
     /* ═══════════════ GAME: BIODIVERSITY TRUE/FALSE ═══════════════ */
