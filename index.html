@@ -746,6 +746,84 @@
       cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
     }
     .sb-announce:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(167,139,250,0.4); }
+
+    /* ═══════════════ FACT BOX ═══════════════ */
+    .fact-box { background: linear-gradient(135deg, rgba(251,191,36,0.08), rgba(248,113,113,0.06)); border: 1px solid rgba(251,191,36,0.3); border-radius: var(--radius); padding: 1.2rem 1.5rem; margin: 1.2rem 0; display: flex; align-items: flex-start; gap: 1rem; }
+    .fact-box .fb-icon { font-size: 2rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .fact-box .fb-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .fact-box .fb-stat { font-family: 'Outfit'; font-size: 1.5rem; font-weight: 900; color: var(--accent-amber); display: block; margin-bottom: 0.3rem; }
+
+    /* ═══════════════ DEEP TABLE ═══════════════ */
+    .deep-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; border-radius: var(--radius-sm); overflow: hidden; }
+    .deep-table th { padding: 0.8rem 1rem; text-align: left; font-size: 0.85rem; font-weight: 700; color: var(--accent-blue); background: rgba(56,189,248,0.1); border-bottom: 2px solid rgba(56,189,248,0.2); }
+    .deep-table td { padding: 0.65rem 1rem; font-size: 0.84rem; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--text-muted); }
+    .deep-table td:first-child { color: var(--accent-green); font-weight: 700; }
+    .deep-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+    /* ═══════════════ ENERGY PYRAMID ═══════════════ */
+    .energy-pyramid { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin: 1.5rem 0; }
+    .pyramid-level { display: flex; align-items: center; justify-content: space-between; border-radius: var(--radius-sm); padding: 0.7rem 1.5rem; font-weight: 700; font-size: 0.85rem; gap: 2rem; transition: transform 0.3s; cursor: default; }
+    .pyramid-level:hover { transform: scale(1.02); }
+    .pl-label { min-width: 180px; color: var(--text); }
+    .pl-energy { font-family: 'Outfit'; font-size: 1.1rem; color: var(--accent-amber); white-space: nowrap; }
+
+    /* ═══════════════ MCQ QUIZ ═══════════════ */
+    .mcq-container { background: linear-gradient(135deg, rgba(56,189,248,0.06), rgba(167,139,250,0.06)); border: 1px solid rgba(56,189,248,0.2); border-radius: var(--radius); padding: 2rem; margin: 2rem 0; }
+    .mcq-question { background: var(--bg-card); border-radius: var(--radius-sm); padding: 1.2rem 1.5rem; font-size: 1rem; font-weight: 600; margin-bottom: 1.2rem; border-left: 4px solid var(--accent-blue); line-height: 1.5; }
+    .mcq-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+    .mcq-opt { padding: 0.9rem 1rem; border-radius: var(--radius-sm); border: 2px solid var(--glass-border); background: var(--bg-card); cursor: pointer; font-size: 0.87rem; font-weight: 600; transition: all 0.3s; text-align: left; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.4; }
+    .mcq-opt:hover:not(:disabled) { border-color: var(--accent-blue); background: rgba(56,189,248,0.08); transform: translateY(-2px); }
+    .mcq-opt.correct { border-color: var(--accent-green) !important; background: rgba(52,211,153,0.15) !important; color: var(--accent-green) !important; }
+    .mcq-opt.wrong { border-color: var(--accent-coral) !important; background: rgba(248,113,113,0.15) !important; color: var(--accent-coral) !important; }
+    .mcq-opt:disabled { cursor: default; }
+    @media (max-width: 600px) { .mcq-options { grid-template-columns: 1fr; } }
+
+    /* ═══════════════ ECO DEEP CARD ═══════════════ */
+    .eco-deep-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 1.8rem; margin-bottom: 1.5rem; transition: transform 0.3s, box-shadow 0.3s; }
+    .eco-deep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .eco-deep-card .edc-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .eco-deep-card .edc-icon { font-size: 3rem; flex-shrink: 0; }
+    .eco-deep-card h3 { font-size: 1.35rem; margin-bottom: 0.2rem; }
+    .eco-deep-card .edc-sub { font-size: 0.84rem; color: var(--text-muted); }
+    .eco-deep-card .edc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .eco-deep-card .edc-col h4 { font-size: 0.88rem; color: var(--accent-blue); margin-bottom: 0.5rem; font-weight: 700; }
+    .eco-deep-card .edc-col ul { margin-left: 1rem; }
+    .eco-deep-card .edc-col li { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 0.3rem; line-height: 1.5; }
+    .eco-food-chain { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: var(--radius-sm); padding: 0.8rem 1rem; margin-top: 1rem; }
+    .eco-food-chain .chain { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.4rem; font-weight: 700; font-size: 0.9rem; }
+    .chain-arrow { color: var(--accent-green); font-size: 1.2rem; }
+    @media (max-width: 600px) { .eco-deep-card .edc-body { grid-template-columns: 1fr; } }
+
+    /* ═══════════════ AQUATIC CARDS ═══════════════ */
+    .aqua-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+    .aqua-card { background: var(--bg-card); border: 1px solid rgba(56,189,248,0.2); border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s; }
+    .aqua-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-glow-blue); border-color: rgba(56,189,248,0.4); }
+    .aqua-card .ac-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+    .aqua-card .ac-icon { font-size: 2rem; flex-shrink: 0; }
+    .aqua-card h3 { font-size: 1.05rem; margin-bottom: 0.1rem; }
+    .aqua-card .ac-type { font-size: 0.7rem; color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .aqua-card p { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 0.5rem; line-height: 1.6; }
+    .aqua-card .ac-example { font-size: 0.82rem; font-weight: 700; color: var(--accent-amber); }
+    .aqua-card .ac-fact { font-size: 0.78rem; color: var(--accent-green); margin-top: 0.5rem; background: rgba(52,211,153,0.08); padding: 0.4rem 0.7rem; border-radius: var(--radius-sm); border: 1px solid rgba(52,211,153,0.15); }
+
+    /* ═══════════════ SUCCESSION TIMELINE ═══════════════ */
+    .succ-timeline { display: flex; gap: 0; flex-wrap: nowrap; overflow-x: auto; margin: 1.5rem 0; padding-bottom: 0.5rem; align-items: flex-start; }
+    .succ-step { flex: 1; min-width: 110px; text-align: center; position: relative; padding: 0 0.5rem; }
+    .succ-step::after { content: '→'; position: absolute; right: -8px; top: 26px; font-size: 1.5rem; color: var(--accent-green); z-index: 2; }
+    .succ-step:last-child::after { display: none; }
+    .ss-icon { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.6rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border: 3px solid var(--glass-border); background: var(--bg-card); transition: border-color 0.3s; }
+    .succ-step:hover .ss-icon { border-color: var(--accent-green); }
+    .ss-name { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .ss-time { font-size: 0.65rem; color: var(--accent-amber); margin-top: 0.2rem; }
+
+    /* ═══════════════ ORDER PUZZLE ═══════════════ */
+    .op-drop-zone { min-height: 70px; border: 2px dashed var(--glass-border); border-radius: var(--radius); padding: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; background: rgba(255,255,255,0.02); transition: border-color 0.3s; }
+    .op-drop-zone:hover { border-color: rgba(56,189,248,0.3); }
+    .op-source-items { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .op-item { padding: 0.55rem 0.9rem; border-radius: var(--radius-sm); border: 2px solid var(--glass-border); background: var(--bg-card); cursor: pointer; font-weight: 700; font-size: 0.82rem; transition: all 0.2s; user-select: none; }
+    .op-item:hover { border-color: var(--accent-amber); background: rgba(251,191,36,0.1); transform: scale(1.03); }
+    .op-item.placed { border-color: var(--accent-purple); background: rgba(167,139,250,0.12); color: var(--accent-purple); }
+    .op-item.correct-place { border-color: var(--accent-green) !important; background: rgba(52,211,153,0.15) !important; color: var(--accent-green) !important; }
   </style>
 </head>
 <body>
@@ -1873,6 +1951,52 @@
         </div>
       </div>
 
+      <!-- BIOTIC vs ABIOTIC TABLE -->
+      <h3 style="margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">🔬 Biotic vs Abiotic — Key Differences</h3>
+      <table class="deep-table">
+        <thead>
+          <tr><th>Feature</th><th>🌿 Biotic (Living)</th><th>💧 Abiotic (Non-Living)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Definition</td><td>All living organisms</td><td>Physical &amp; chemical environment</td></tr>
+          <tr><td>Examples</td><td>Plants, animals, fungi, bacteria</td><td>Sunlight, water, soil, temperature, air</td></tr>
+          <tr><td>Role</td><td>Producers, consumers, decomposers</td><td>Provides energy, nutrients, habitat space</td></tr>
+          <tr><td>Real Example</td><td>Amazon has 3 million+ species (biotic)</td><td>Amazon river = 20% of world's freshwater (abiotic)</td></tr>
+          <tr><td>Interact?</td><td>Yes — with each other and abiotic</td><td>Yes — shapes which biotic species can survive</td></tr>
+        </tbody>
+      </table>
+
+      <!-- ENERGY PYRAMID -->
+      <h3 style="margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">⚡ The 10% Rule — Pyramid of Energy</h3>
+      <div class="definition-box" style="border-color: rgba(251,191,36,0.25); background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(248,113,113,0.06));">
+        <h3 style="color: var(--accent-amber);">🔢 Simple Explanation with Real Numbers</h3>
+        <p>When energy moves from one organism to the next, <strong>only 10% is transferred</strong>. The rest (90%) is lost as heat. That's why you need <strong>more grass than cows, and more cows than lions!</strong></p>
+        <p style="margin-top: 0.5rem; color: var(--text-muted);">This was proposed by <strong>Raymond Lindeman (1942)</strong> — called Lindeman's 10% Law or the Law of Trophic Efficiency.</p>
+      </div>
+      <div class="energy-pyramid">
+        <div class="pyramid-level" style="background: rgba(248,113,113,0.15); border: 1px solid rgba(248,113,113,0.3); width: 30%;">
+          <span class="pl-label">🦅 Apex Predator (Eagle)</span><span class="pl-energy">1 kcal</span>
+        </div>
+        <div class="pyramid-level" style="background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.3); width: 50%;">
+          <span class="pl-label">🐍 Secondary Consumer (Snake)</span><span class="pl-energy">10 kcal</span>
+        </div>
+        <div class="pyramid-level" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); width: 70%;">
+          <span class="pl-label">🐸 Primary Consumer (Frog)</span><span class="pl-energy">100 kcal</span>
+        </div>
+        <div class="pyramid-level" style="background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.3); width: 90%;">
+          <span class="pl-label">🌱 Producers (Grass/Plants)</span><span class="pl-energy">1,000 kcal</span>
+        </div>
+      </div>
+      <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem;">☀️ Sunlight enters → 10,000 kcal captured by plants → only 1 kcal reaches the eagle!</p>
+
+      <div class="fact-box">
+        <div class="fb-icon">🌿</div>
+        <div class="fb-text">
+          <span class="fb-stat">$125 Trillion / year</span>
+          The total value of free ecosystem services provided by nature — clean air, water purification, pollination, climate regulation. This is more than the entire global GDP!
+        </div>
+      </div>
+
       <!-- GAME: TROPHIC LEVEL SORTER -->
       <div class="game-container" id="game-trophicsorter">
         <div class="game-header">
@@ -1894,6 +2018,42 @@
           </div>
         </div>
         <div class="game-feedback info" id="trophicFeedback">Where does it belong in the food web?</div>
+      </div>
+
+      <!-- MCQ QUIZ: ECOSYSTEM -->
+      <div class="mcq-container" id="mcq-ecosystem">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-amber);">🧠</div>
+          <div>
+            <h3>Quiz: Ecosystem Master 🌍</h3>
+            <p>10 questions on ecosystem structure, energy flow, and real facts!</p>
+          </div>
+        </div>
+        <div class="game-score">⭐ Score: <span id="ecoMcqScore">0</span> / 10 &nbsp;|&nbsp; Q: <span id="ecoMcqNum">1</span> / 10</div>
+        <div class="mcq-question" id="ecoMcqQ">Loading question...</div>
+        <div class="mcq-options" id="ecoMcqOpts"></div>
+        <div class="game-feedback info" id="ecoMcqFeedback">Choose the best answer!</div>
+        <div style="text-align: center; margin-top: 1rem;">
+          <button class="rebus-solve-btn" onclick="ecoMcqNext()" id="ecoMcqNextBtn" style="display:none;">Next Question →</button>
+        </div>
+      </div>
+
+      <!-- REBUS PUZZLE: ECOSYSTEM TERMS -->
+      <div class="game-container" id="rebus-ecosystem">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-purple);">🧩</div>
+          <div>
+            <h3>Rebus Puzzle — Decode the Ecosystem Term!</h3>
+            <p>Combine the emoji clues to find the hidden ecology word!</p>
+          </div>
+        </div>
+        <div id="rebusEcoArea"></div>
+        <div class="rebus-controls">
+          <button class="rebus-solve-btn" onclick="showRebusEco()">💡 Reveal Answer</button>
+          <button class="jumble-ctrl-btn" onclick="nextRebusEco()">⏭ Next Puzzle</button>
+        </div>
+        <div class="game-score" style="margin-top: 0.5rem;">🧩 Puzzle: <span id="rebusEcoNum">1</span> / 4</div>
+        <div class="rebus-answer-reveal" id="rebusEcoReveal"></div>
       </div>
     </section>
 
@@ -2087,6 +2247,76 @@
         </div>
         <div class="game-feedback info" id="fcFeedback">Click organisms in order from producer to apex predator!</div>
       </div>
+
+      <!-- REAL FOOD CHAIN EXAMPLES -->
+      <h3 style="margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">🌏 Real Food Chain Examples — From India &amp; the World</h3>
+
+      <div class="adv-disadv">
+        <div class="adv-panel">
+          <h4>🇮🇳 Indian Grassland Food Chain</h4>
+          <div style="text-align:center; margin: 0.8rem 0; font-size: 0.9rem; background: rgba(52,211,153,0.06); padding: 0.8rem; border-radius: var(--radius-sm);">
+            <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.3rem; font-weight:700;">
+              <span>☀️ Sun</span><span style="color:var(--accent-green);">→</span>
+              <span>🌾 Grass</span><span style="color:var(--accent-green);">→</span>
+              <span>🦗 Grasshopper</span><span style="color:var(--accent-green);">→</span>
+              <span>🐸 Frog</span><span style="color:var(--accent-green);">→</span>
+              <span>🐍 Snake</span><span style="color:var(--accent-green);">→</span>
+              <span>🦚 Peacock</span>
+            </div>
+          </div>
+          <ul>
+            <li>🌾 Grass = Producer (T1)</li>
+            <li>🦗 Grasshopper = Primary Consumer (T2)</li>
+            <li>🐸 Frog = Secondary Consumer (T3)</li>
+            <li>🐍 Snake = Tertiary Consumer (T4)</li>
+            <li>🦚 Peacock = Apex Predator (T5) — India's National Bird!</li>
+          </ul>
+        </div>
+        <div class="adv-panel" style="background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(56,189,248,0.03)); border-color: rgba(56,189,248,0.2);">
+          <h4 style="color: var(--accent-blue);">🌊 Marine (Ocean) Food Chain</h4>
+          <div style="text-align:center; margin: 0.8rem 0; font-size: 0.9rem; background: rgba(56,189,248,0.06); padding: 0.8rem; border-radius: var(--radius-sm);">
+            <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.3rem; font-weight:700;">
+              <span>☀️ Sun</span><span style="color:var(--accent-blue);">→</span>
+              <span>🌿 Phytoplankton</span><span style="color:var(--accent-blue);">→</span>
+              <span>🦐 Zooplankton</span><span style="color:var(--accent-blue);">→</span>
+              <span>🐟 Small Fish</span><span style="color:var(--accent-blue);">→</span>
+              <span>🦈 Shark</span>
+            </div>
+          </div>
+          <ul>
+            <li>🌿 Phytoplankton = Producers — produce 50% of Earth's O₂!</li>
+            <li>🦐 Zooplankton = Primary Consumers</li>
+            <li>🐟 Small Fish (anchovies) = Secondary Consumers</li>
+            <li>🦈 Shark = Apex Predator — removes sick/weak fish</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fact-box">
+        <div class="fb-icon">🔬</div>
+        <div class="fb-text">
+          <span class="fb-stat">Bioaccumulation — DDT &amp; Eagles</span>
+          DDT (a pesticide) was found at 0.000003 ppm in water → 0.04 ppm in plankton → 0.5 ppm in small fish → 2 ppm in large fish → <strong>25 ppm in eagles</strong>. That's 10 million times concentrated! This caused eagle egg shells to thin, nearly driving them extinct. DDT was banned in 1972.
+        </div>
+      </div>
+
+      <!-- MCQ QUIZ: FOOD CHAIN -->
+      <div class="mcq-container" id="mcq-foodchain">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-green);">🧠</div>
+          <div>
+            <h3>Quiz: Food Chain Expert 🔗</h3>
+            <p>8 questions on food chains, trophic levels, the 10% rule, and real examples!</p>
+          </div>
+        </div>
+        <div class="game-score">⭐ Score: <span id="fcMcqScore">0</span> / 8 &nbsp;|&nbsp; Q: <span id="fcMcqNum">1</span> / 8</div>
+        <div class="mcq-question" id="fcMcqQ">Loading question...</div>
+        <div class="mcq-options" id="fcMcqOpts"></div>
+        <div class="game-feedback info" id="fcMcqFeedback">Choose the best answer!</div>
+        <div style="text-align: center; margin-top: 1rem;">
+          <button class="rebus-solve-btn" onclick="fcMcqNext()" id="fcMcqNextBtn" style="display:none;">Next Question →</button>
+        </div>
+      </div>
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -2214,7 +2444,50 @@
         </div>
       </div>
 
+      <!-- YELLOWSTONE STORY -->
+      <div class="fact-box">
+        <div class="fb-icon">🐺</div>
+        <div class="fb-text">
+          <span class="fb-stat">The Yellowstone Wolf Story — A Real Trophic Cascade!</span>
+          Wolves were hunted to extinction in Yellowstone by 1926. Elk populations exploded, overgrazed riverbanks, causing erosion. In 1995, 14 wolves were reintroduced. Within years: elk avoided riverbanks → vegetation recovered → beavers returned → dams slowed rivers → fish returned → bears had more berries → <strong>rivers literally changed course!</strong> One species changed an entire ecosystem.
+        </div>
+      </div>
 
+      <!-- FOOD WEB T/F GAME -->
+      <div class="game-container" id="game-fwTf">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-blue);">🕸️</div>
+          <div>
+            <h3>Game: Food Web True or False 🕸️</h3>
+            <p>10 statements about food webs — test your real-world knowledge!</p>
+          </div>
+        </div>
+        <div class="game-score">⭐ Score: <span id="fwTfScore">0</span> / 10</div>
+        <div class="tf-question" id="fwTfQ">Loading...</div>
+        <div class="tf-buttons">
+          <button class="tf-btn true-btn" id="fwTfTrue" onclick="answerFwTf(true)">✅ TRUE</button>
+          <button class="tf-btn false-btn" id="fwTfFalse" onclick="answerFwTf(false)">❌ FALSE</button>
+        </div>
+        <div class="game-feedback info" id="fwTfFeedback">Is this statement TRUE or FALSE?</div>
+      </div>
+
+      <!-- FOOD WEB REBUS -->
+      <div class="game-container" id="rebus-foodweb">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-purple);">🧩</div>
+          <div>
+            <h3>Rebus Puzzle — Decode the Food Web Term!</h3>
+            <p>Combine the emojis to find the ecology concept!</p>
+          </div>
+        </div>
+        <div id="fwRebusArea"></div>
+        <div class="rebus-controls">
+          <button class="rebus-solve-btn" onclick="showFwRebus()">💡 Reveal Answer</button>
+          <button class="jumble-ctrl-btn" onclick="nextFwRebus()">⏭ Next Puzzle</button>
+        </div>
+        <div class="game-score" style="margin-top: 0.5rem;">🧩 Puzzle: <span id="fwRebusNum">1</span> / 3</div>
+        <div class="rebus-answer-reveal" id="fwRebusReveal"></div>
+      </div>
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -2225,35 +2498,175 @@
         <div class="section-number" style="background: var(--gradient-coral);">10</div>
         <div>
           <h2>Ecological Succession — Nature's Recovery 🌋</h2>
-          <p>How ecosystems change and develop over time</p>
+          <p>How ecosystems change and rebuild over time — step by step</p>
         </div>
       </div>
       <hr class="section-divider" />
+
       <div class="definition-box">
-        <h3>📖 Definition</h3>
-        <p><strong>Ecological Succession</strong> is the process by which the structure of a biological community evolves over time. It can happen after a disaster (like a volcano or fire) or in completely new habitats (like bare rock).</p>
+        <h3>📖 What is Ecological Succession? (Simple Explanation)</h3>
+        <p><strong>Ecological Succession</strong> is the gradual, orderly process by which a biological community changes over time. New species replace old ones until a stable <strong>climax community</strong> is reached.</p>
+        <p style="margin-top: 0.6rem;">🏗️ <strong>Think of it like building a city:</strong> First you lay foundations (pioneer species), then build basic infrastructure (mosses, herbs), then houses (shrubs), and finally skyscrapers (tall trees = climax forest). Each stage creates conditions for the next!</p>
+        <p class="quote">"Ecological succession is the process of change in the species structure of an ecological community over time." — Frederic Clements (pioneer of succession science)</p>
       </div>
+
       <div class="section-image">
         <img src="images/eco_succession.png" alt="Ecological succession from bare rock to climax forest" />
       </div>
+
+      <!-- PRIMARY SUCCESSION TIMELINE -->
+      <h3 style="margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">🪨 Primary Succession — From Bare Rock to Forest</h3>
+      <div class="definition-box" style="border-color: rgba(248,113,113,0.2); background: linear-gradient(135deg, rgba(248,113,113,0.05), rgba(251,191,36,0.05));">
+        <h3 style="color: var(--accent-coral);">🌋 Real Example: Krakatoa Volcano (1883)</h3>
+        <p>When Krakatoa exploded in 1883, a new island of bare rock and ash appeared. Within <strong>3 years</strong>, blue-green algae colonized. Within <strong>25 years</strong>, there were forests with birds. Today, 140 years later, it's a lush tropical island — a living proof of primary succession!</p>
+      </div>
+      <div class="succ-timeline">
+        <div class="succ-step">
+          <div class="ss-icon">🪨</div>
+          <div class="ss-name">Bare Rock</div>
+          <div class="ss-time">Stage 0</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🟢</div>
+          <div class="ss-name">Lichens &amp; Algae (Pioneers)</div>
+          <div class="ss-time">Years 1–50</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌿</div>
+          <div class="ss-name">Mosses &amp; Ferns</div>
+          <div class="ss-time">Years 50–200</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌱</div>
+          <div class="ss-name">Herbs &amp; Grasses</div>
+          <div class="ss-time">Years 100–300</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌳</div>
+          <div class="ss-name">Shrubs &amp; Bushes</div>
+          <div class="ss-time">Years 200–500</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌲</div>
+          <div class="ss-name">Climax Forest</div>
+          <div class="ss-time">500–1000+ years</div>
+        </div>
+      </div>
+
+      <!-- SECONDARY SUCCESSION TIMELINE -->
+      <h3 style="margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">🔥 Secondary Succession — After Disturbance</h3>
+      <div class="definition-box" style="border-color: rgba(251,191,36,0.25); background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(52,211,153,0.05));">
+        <h3 style="color: var(--accent-amber);">🌲 Real Example: Yellowstone Forest Fire (1988)</h3>
+        <p>In 1988, a wildfire burned 36% of Yellowstone National Park (about 800,000 acres). But since the <strong>soil was intact</strong>, recovery was rapid. Within <strong>1 year</strong>, fireweed and grasses appeared. By <strong>10 years</strong>, young aspen and pine trees were growing. Today, the forest is healthier than before — with higher biodiversity!</p>
+      </div>
+      <div class="succ-timeline">
+        <div class="succ-step">
+          <div class="ss-icon">🔥</div>
+          <div class="ss-name">Disturbance (Fire/Flood)</div>
+          <div class="ss-time">Day 0</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌱</div>
+          <div class="ss-name">Annual Weeds (Pioneers)</div>
+          <div class="ss-time">Months 1–12</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌿</div>
+          <div class="ss-name">Perennial Herbs &amp; Grasses</div>
+          <div class="ss-time">Years 1–5</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌳</div>
+          <div class="ss-name">Shrubs &amp; Young Trees</div>
+          <div class="ss-time">Years 5–25</div>
+        </div>
+        <div class="succ-step">
+          <div class="ss-icon">🌲</div>
+          <div class="ss-name">Climax Forest</div>
+          <div class="ss-time">50–200 years</div>
+        </div>
+      </div>
+
       <div class="adv-disadv">
         <div class="adv-panel">
           <h4>✅ Primary Succession</h4>
           <ul>
-            <li>Starts from BARE ROCK (no soil).</li>
-            <li>Examples: Lava flows in Hawaii, newly formed islands.</li>
-            <li>Pioneer species (like lichens) break down rock to create soil.</li>
-            <li>Takes hundreds or thousands of years.</li>
+            <li><strong>Starts on:</strong> Bare rock — NO soil present</li>
+            <li><strong>Pioneer species:</strong> Lichens, blue-green algae (break rock into soil)</li>
+            <li><strong>Examples:</strong> Lava flows (Hawaii/Krakatoa), newly formed islands, retreating glaciers</li>
+            <li><strong>Duration:</strong> Hundreds to thousands of years</li>
+            <li><strong>Key process:</strong> Soil formation (pedogenesis) is the slowest step</li>
           </ul>
         </div>
         <div class="disadv-panel" style="background: linear-gradient(135deg, rgba(251,191,36,0.08), rgba(251,191,36,0.03)); border-color: rgba(251,191,36,0.2);">
-          <h4 style="color: var(--accent-amber);">⚠️ Secondary Succession</h4>
+          <h4 style="color: var(--accent-amber);">⚡ Secondary Succession</h4>
           <ul>
-            <li>Starts where SOIL is already present.</li>
-            <li>Examples: After a forest fire (like Yellowstone) or abandoned farmland.</li>
-            <li>Faster process because soil and some seeds survive.</li>
-            <li>Ends in a stable "climax community" (like a mature forest).</li>
+            <li><strong>Starts on:</strong> Disturbed land — SOIL already present</li>
+            <li><strong>Pioneer species:</strong> Annual weeds, grasses (seeds already in soil)</li>
+            <li><strong>Examples:</strong> After forest fire (Yellowstone 1988), abandoned farmland, flood plains</li>
+            <li><strong>Duration:</strong> Decades to a few centuries (much faster!)</li>
+            <li><strong>Key advantage:</strong> Soil + seed bank speeds recovery dramatically</li>
           </ul>
+        </div>
+      </div>
+
+      <div class="importance-grid">
+        <div class="importance-card">
+          <div class="ic-icon">🎯</div>
+          <div><h4>Climax Community</h4><p>The final, stable stage of succession. It maintains itself indefinitely unless disturbed. Example: mature oak forest or tropical rainforest.</p></div>
+        </div>
+        <div class="importance-card">
+          <div class="ic-icon">🦠</div>
+          <div><h4>Pioneer Species</h4><p>The FIRST organisms to colonize a new/disturbed habitat. They modify the environment to make it suitable for later species. Example: Lichens on bare rock.</p></div>
+        </div>
+        <div class="importance-card">
+          <div class="ic-icon">🌍</div>
+          <div><h4>Why It Matters</h4><p>Succession shows us that nature is resilient. Even after massive disasters, ecosystems can recover if we give them time and protection.</p></div>
+        </div>
+        <div class="importance-card">
+          <div class="ic-icon">⏳</div>
+          <div><h4>Sere</h4><p>Each stage in succession is called a 'sere'. The whole succession from start to climax is the 'seral sequence'. Each sere prepares the environment for the next.</p></div>
+        </div>
+      </div>
+
+      <!-- SUCCESSION ORDER PUZZLE -->
+      <div class="game-container" id="game-succOrder">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-coral);">🔢</div>
+          <div>
+            <h3>Game: Succession Order Puzzle 🌱→🌲</h3>
+            <p>Arrange the stages of ecological succession in the correct order!</p>
+          </div>
+        </div>
+        <div class="game-score">🧩 Puzzle: <span id="succOrderTitle">Primary Succession</span></div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">Click the stages below in the correct order (first to last):</p>
+        <div style="font-size:0.83rem; color:var(--accent-blue); margin-bottom:0.5rem;">📥 Your order:</div>
+        <div class="op-drop-zone" id="succOrderDropZone"><div style="color:var(--text-muted);font-size:0.85rem;">Click items below in order →</div></div>
+        <div style="font-size:0.83rem; color:var(--accent-amber); margin-bottom:0.5rem;">📦 Available stages:</div>
+        <div class="op-source-items" id="succOrderSource"></div>
+        <div style="display:flex; gap:0.7rem; flex-wrap:wrap; margin-top:0.5rem;">
+          <button class="rebus-solve-btn" onclick="checkSuccOrder()" id="succOrderCheck" style="display:none;">✅ Check Order</button>
+          <button class="jumble-ctrl-btn" onclick="resetSuccOrder()">🔄 Reset</button>
+          <button class="rebus-solve-btn" onclick="nextSuccOrder()" id="succOrderNext" style="display:none; background: var(--gradient-blue);">Next Puzzle →</button>
+        </div>
+        <div class="game-feedback info" id="succOrderFeedback">Click stages in the correct succession order!</div>
+      </div>
+
+      <!-- SUCCESSION MCQ QUIZ -->
+      <div class="mcq-container" id="mcq-succession">
+        <div class="game-header">
+          <div class="game-icon" style="background: var(--gradient-coral);">🧠</div>
+          <div>
+            <h3>Quiz: Succession Specialist 🌋</h3>
+            <p>6 questions on ecological succession with real examples from Krakatoa &amp; Yellowstone!</p>
+          </div>
+        </div>
+        <div class="game-score">⭐ Score: <span id="succMcqScore">0</span> / 6 &nbsp;|&nbsp; Q: <span id="succMcqNum">1</span> / 6</div>
+        <div class="mcq-question" id="succMcqQ">Loading question...</div>
+        <div class="mcq-options" id="succMcqOpts"></div>
+        <div class="game-feedback info" id="succMcqFeedback">Choose the best answer!</div>
+        <div style="text-align: center; margin-top: 1rem;">
+          <button class="rebus-solve-btn" onclick="succMcqNext()" id="succMcqNextBtn" style="display:none;">Next Question →</button>
         </div>
       </div>
     </section>
@@ -2266,22 +2679,6 @@
         <div class="section-number" style="background: var(--gradient-green);">11</div>
         <div>
           <h2>Terrestrial Ecosystems — Life on Land 🌲</h2>
-          <p>Forests, Grasslands, and Deserts</p>
-        </div>
-      </div>
-      <hr class="section-divider" />
-      <div class="card-grid">
-        <div class="flip-card" tabindex="0">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="card-icon">🌲</div>
-              <h3>Forest Ecosystem</h3>
-              <p>Dominated by trees, high rainfall, and incredible biodiversity.</p>
-              <span class="flip-hint">Click to flip →</span>
-            </div>
-            <div class="flip-card-back">
-              <h3>Examples & Features</h3>
-              <ul>
                 <li>Amazon Rainforest, Taiga</li>
                 <li>Acts as the "lungs of the Earth"</li>
                 <li>High canopy, dense undergrowth</li>

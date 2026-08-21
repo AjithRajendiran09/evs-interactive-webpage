@@ -41,7 +41,506 @@
         requestAnimationFrame(animate);
       }
       animate();
+
+  // ═══════════════ ECOSYSTEM MCQ ═══════════════
+  const ecoMcqQuestions = [
+    {q:"What is the primary source of energy in most ecosystems?",opts:["Water","Sunlight","Soil","Wind"],ans:1,exp:"Sunlight is captured by producers through photosynthesis — it's the primary energy source for all life on Earth."},
+    {q:"Which of the following is an ABIOTIC component?",opts:["Bacteria","Fungi","Temperature","Earthworms"],ans:2,exp:"Temperature is a non-living physical factor (abiotic). Bacteria, fungi, and earthworms are all living organisms (biotic)."},
+    {q:"How much energy transfers from one trophic level to the next?",opts:["100%","50%","10%","25%"],ans:2,exp:"Only 10% of energy passes to the next level. 90% is lost as heat. This is called Lindeman's 10% Law (1942)."},
+    {q:"Who are the 'recyclers' of an ecosystem?",opts:["Producers","Herbivores","Carnivores","Decomposers"],ans:3,exp:"Decomposers (bacteria, fungi, earthworms) break down dead matter and return nutrients to the soil, completing the cycle."},
+    {q:"The Amazon Rainforest produces approximately what % of Earth's oxygen?",opts:["5%","10%","20%","50%"],ans:2,exp:"The Amazon produces ~20% of Earth's oxygen. It's called the 'Lungs of the Earth' — a real, verified scientific fact!"},
+    {q:"Autotrophs are organisms that:",opts:["Eat animals","Make their own food","Eat plants only","Decompose dead matter"],ans:1,exp:"Autotrophs (producers like plants and algae) make their own food through photosynthesis — they don't need to eat others."},
+    {q:"Energy flow in an ecosystem is:",opts:["Circular","Bidirectional","Unidirectional (one-way)","Random"],ans:2,exp:"Energy flows in ONE direction only: Sun → Producers → Consumers. Unlike nutrients, energy cannot cycle back — it's lost as heat."},
+    {q:"Which term was coined by Arthur Tansley in 1935?",opts:["Food chain","Biodiversity","Ecosystem","Biome"],ans:2,exp:"Arthur Tansley coined 'ecosystem' in 1935 to describe the unified system of living organisms and their physical environment."},
+    {q:"The approximate annual value of free ecosystem services provided by nature is:",opts:["$10 billion","$1 trillion","$125 trillion","$500 billion"],ans:2,exp:"$125 trillion/year! This includes clean air, water purification, pollination, and climate regulation — all provided FREE by nature."},
+    {q:"Which process do producers use to convert sunlight into food?",opts:["Respiration","Decomposition","Photosynthesis","Fermentation"],ans:2,exp:"Photosynthesis! Plants use sunlight + CO₂ + water to produce glucose (food) and oxygen as a byproduct."},
+  ];
+  let ecoMcqIdx=0, ecoMcqCorrect=0;
+  function initEcoMcq(){ecoMcqIdx=0;ecoMcqCorrect=0;renderEcoMcq();}
+  function renderEcoMcq(){
+    const q=ecoMcqQuestions[ecoMcqIdx];
+    if(!document.getElementById('ecoMcqQ'))return;
+    document.getElementById('ecoMcqQ').textContent=`Q${ecoMcqIdx+1}. ${q.q}`;
+    document.getElementById('ecoMcqNum').textContent=ecoMcqIdx+1;
+    document.getElementById('ecoMcqScore').textContent=ecoMcqCorrect;
+    document.getElementById('ecoMcqNextBtn').style.display='none';
+    const fb=document.getElementById('ecoMcqFeedback');
+    fb.textContent='Choose the best answer!';fb.className='game-feedback info';
+    const opts=document.getElementById('ecoMcqOpts');opts.innerHTML='';
+    q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='mcq-opt';btn.textContent=o;btn.onclick=()=>answerEcoMcq(i,btn);opts.appendChild(btn);});
+  }
+  function answerEcoMcq(chosen,btn){
+    const q=ecoMcqQuestions[ecoMcqIdx];
+    document.querySelectorAll('#ecoMcqOpts .mcq-opt').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('ecoMcqFeedback');
+    if(chosen===q.ans){btn.classList.add('correct');ecoMcqCorrect++;addXP(15);fb.textContent='✅ Correct! '+q.exp;fb.className='game-feedback success';}
+    else{btn.classList.add('wrong');document.querySelectorAll('#ecoMcqOpts .mcq-opt')[q.ans].classList.add('correct');fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('ecoMcqScore').textContent=ecoMcqCorrect;
+    if(ecoMcqIdx<ecoMcqQuestions.length-1){document.getElementById('ecoMcqNextBtn').style.display='inline-block';}
+    else{setTimeout(()=>{fb.textContent=`🎉 Quiz Complete! Score: ${ecoMcqCorrect}/10. ${ecoMcqCorrect>=8?'Excellent Eco Expert! 🏆':ecoMcqCorrect>=5?'Good job! 👍':'Keep studying! 📚'}`;fb.className='game-feedback success';},500);}
+  }
+  function ecoMcqNext(){ecoMcqIdx++;renderEcoMcq();}
+
+  // ═══════════════ ECOSYSTEM REBUS ═══════════════
+  const ecoRebuses=[
+    {fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM = ECOSYSTEM',explain:'An ecosystem is a community of living (biotic) and non-living (abiotic) components interacting as a system. Term coined by Arthur Tansley in 1935.'},
+    {fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:'Photosynthesis is the process by which green plants convert sunlight + CO₂ + water into glucose and oxygen. Basis of all food chains!'},
+    {fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER = PRODUCER',explain:'A Producer (autotroph) makes its own food using photosynthesis. Plants, algae are producers — the base of all food chains.'},
+    {fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC = BIOTIC',explain:'Biotic means living. All plants, animals, fungi, and bacteria in an ecosystem are biotic components. The non-living parts are abiotic.'},
+  ];
+  let ecoRebusIdx=0;
+  function initEcoRebus(){ecoRebusIdx=0;renderEcoRebus();}
+  function renderEcoRebus(){
+    const r=ecoRebuses[ecoRebusIdx];
+    if(!document.getElementById('rebusEcoArea'))return;
+    document.getElementById('rebusEcoNum').textContent=ecoRebusIdx+1;
+    document.getElementById('rebusEcoReveal').className='rebus-answer-reveal';
+    let html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+    r.fragments.forEach(f=>{if(f.op){html+=`<div class="rebus-plus">${f.op}</div>`;}else{html+=`<div class="rebus-fragment"><div class="rf-emoji">${f.e}</div><small style="font-size:0.7rem;color:var(--text-muted)">${f.l}</small></div>`;} });
+    html+=`</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 Hint: It's a key ecosystem term (${r.answer.length} letters)</div></div>`;
+    document.getElementById('rebusEcoArea').innerHTML=html;
+  }
+  function showRebusEco(){
+    const r=ecoRebuses[ecoRebusIdx];
+    const rev=document.getElementById('rebusEcoReveal');
+    rev.className='rebus-answer-reveal show';
+    rev.innerHTML=`<div class="rar-word">🎉 ${r.answer}</div><div class="rar-breakdown">${r.breakdown}</div><div class="rar-explain">${r.explain}</div>`;
+    addXP(20);
+  }
+  function nextRebusEco(){ecoRebusIdx=(ecoRebusIdx+1)%ecoRebuses.length;renderEcoRebus();}
+
+  // ═══════════════ FOOD CHAIN MCQ ═══════════════
+  const fcMcqQuestions=[
+    {q:"A food chain ALWAYS starts with a:",opts:["Lion","Bacteria","Plant (Producer)","Snake"],ans:2,exp:"Food chains always start with producers (plants/algae) that convert sunlight into chemical energy through photosynthesis."},
+    {q:"In an Indian grassland, which is the correct food chain?",opts:["Peacock→Snake→Frog→Grasshopper→Grass","Grass→Grasshopper→Frog→Snake→Peacock","Snake→Frog→Grass→Grasshopper","Frog→Grass→Snake→Peacock"],ans:1,exp:"Grass→Grasshopper→Frog→Snake→Peacock! Energy flows from producers upward. Peacock (India's national bird) is the apex predator here!"},
+    {q:"What percentage of energy is LOST between trophic levels?",opts:["10%","50%","90%","75%"],ans:2,exp:"90% of energy is lost as heat at each step. Only 10% transfers to the next level. This limits food chain length to 4-5 levels."},
+    {q:"DDT (pesticide) accumulates MOST in which organism of a food chain?",opts:["Plants","Grasshoppers","Small fish","Eagles (top predator)"],ans:3,exp:"Bioaccumulation! Toxins like DDT concentrate as they move up the chain. Top predators like eagles accumulate the MOST — up to 10 million times more than water!"},
+    {q:"What are decomposers' main function in a food chain?",opts:["Hunt prey","Photosynthesize","Break dead matter, recycle nutrients","Migrate seasonally"],ans:2,exp:"Decomposers (bacteria, fungi) break down dead organisms and return nutrients to the soil, allowing producers to grow again. The cycle continues!"},
+    {q:"Which marine food chain is correct?",opts:["Shark→Fish→Zooplankton→Phytoplankton","Phytoplankton→Zooplankton→Small Fish→Shark","Zooplankton→Phytoplankton→Fish→Shark","Fish→Phytoplankton→Shark"],ans:1,exp:"Marine food chains start with phytoplankton (microscopic algae). They produce 50% of Earth's oxygen and form the base of all ocean food chains!"},
+    {q:"A hawk eats snakes, which eat frogs, which eat grasshoppers that eat grass. What trophic level is the hawk?",opts:["T1 (Producer)","T2 (Primary Consumer)","T3 (Secondary Consumer)","T4 (Tertiary/Apex)"],ans:3,exp:"Grass=T1, Grasshopper=T2, Frog=T3, Snake=T4, Hawk=T5 Apex! Count from the producer to find the trophic level."},
+    {q:"Why are food chains usually limited to 4-5 levels?",opts:["Animals don't want to eat more","Not enough space","Energy decreases so much that higher levels can't be sustained","Not enough species"],ans:2,exp:"Because of the 10% rule, energy becomes so scarce by the 5th level (just 0.01% of original) that it cannot support another trophic level!"},
+  ];
+  let fcMcqIdx=0,fcMcqCorrect=0;
+  function initFcMcq(){fcMcqIdx=0;fcMcqCorrect=0;renderFcMcq();}
+  function renderFcMcq(){
+    const q=fcMcqQuestions[fcMcqIdx];
+    if(!document.getElementById('fcMcqQ'))return;
+    document.getElementById('fcMcqQ').textContent=`Q${fcMcqIdx+1}. ${q.q}`;
+    document.getElementById('fcMcqNum').textContent=fcMcqIdx+1;
+    document.getElementById('fcMcqScore').textContent=fcMcqCorrect;
+    document.getElementById('fcMcqNextBtn').style.display='none';
+    const fb=document.getElementById('fcMcqFeedback');fb.textContent='Choose the best answer!';fb.className='game-feedback info';
+    const opts=document.getElementById('fcMcqOpts');opts.innerHTML='';
+    q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='mcq-opt';btn.textContent=o;btn.onclick=()=>answerFcMcq(i,btn);opts.appendChild(btn);});
+  }
+  function answerFcMcq(chosen,btn){
+    const q=fcMcqQuestions[fcMcqIdx];
+    document.querySelectorAll('#fcMcqOpts .mcq-opt').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('fcMcqFeedback');
+    if(chosen===q.ans){btn.classList.add('correct');fcMcqCorrect++;addXP(15);fb.textContent='✅ Correct! '+q.exp;fb.className='game-feedback success';}
+    else{btn.classList.add('wrong');document.querySelectorAll('#fcMcqOpts .mcq-opt')[q.ans].classList.add('correct');fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('fcMcqScore').textContent=fcMcqCorrect;
+    if(fcMcqIdx<fcMcqQuestions.length-1){document.getElementById('fcMcqNextBtn').style.display='inline-block';}
+    else{setTimeout(()=>{fb.textContent=`🎉 Done! Score: ${fcMcqCorrect}/8. ${fcMcqCorrect>=7?'Food Chain Master! 🏆':fcMcqCorrect>=5?'Well done! 👍':'Keep learning! 📚'}`;fb.className='game-feedback success';},500);}
+  }
+  function fcMcqNext(){fcMcqIdx++;renderFcMcq();}
+
+  // ═══════════════ FOOD WEB TRUE/FALSE ═══════════════
+  const fwTfQuestions=[
+    {q:"A food web is more realistic than a food chain because most animals eat more than one type of food.",ans:true,exp:"TRUE! Real animals are rarely limited to one food source. A fox eats rabbits, mice, berries, and insects — food webs represent reality."},
+    {q:"Wolves were removed from Yellowstone and reintroduced in 1995, causing rivers to literally change course.",ans:true,exp:"TRUE! When 14 wolves returned in 1995, they changed elk behavior → vegetation recovered → beavers returned → rivers changed course. A real trophic cascade!"},
+    {q:"Removing a keystone species has no significant effect on the food web.",ans:false,exp:"FALSE! Removing a keystone species can COLLAPSE the entire web. Sea otters protect kelp forests from sea urchins. Remove otters → urchins explode → kelp forest destroyed."},
+    {q:"A food web has more stability than a food chain because of multiple energy pathways.",ans:true,exp:"TRUE! If one species disappears in a web, energy can still flow through alternative pathways. More connections = more stability and resilience."},
+    {q:"Bees pollinate over 75% of the world's food crops.",ans:true,exp:"TRUE! Bees are a keystone pollinator species. Without them, 75% of flowering plants (and most of our food) would disappear. Bee conservation is critical!"},
+    {q:"A trophic cascade means changes at one level ONLY affect the level directly above or below.",ans:false,exp:"FALSE! Trophic cascades ripple through the ENTIRE food web, affecting all levels. Removing wolves in Yellowstone affected plants, rivers, fish, birds — everything!"},
+    {q:"All food webs start with producers at the base.",ans:true,exp:"TRUE! Whether phytoplankton in oceans, grass in grasslands, or trees in forests — producers that photosynthesize always form the foundation of every food web."},
+    {q:"Invasive species can disrupt existing food web connections.",ans:true,exp:"TRUE! Nile Perch introduced to Lake Victoria (Africa) caused extinction of 200+ native fish species, completely destroying the existing food web in just decades."},
+    {q:"Food webs are unaffected by climate change.",ans:false,exp:"FALSE! Climate change shifts species' geographic ranges and disrupts timing. When predator and prey are out of sync (phenological mismatch), food webs collapse."},
+    {q:"Phytoplankton (microscopic ocean algae) produce 50% of Earth's oxygen.",ans:true,exp:"TRUE! Every other breath you take comes from the ocean. Phytoplankton produce more oxygen than all rainforests combined! Ocean health is critical for human survival."},
+  ];
+  let fwTfIdx=0,fwTfCorrect=0;
+  function initFwTf(){fwTfIdx=0;fwTfCorrect=0;renderFwTf();}
+  function renderFwTf(){
+    const q=fwTfQuestions[fwTfIdx];
+    if(!document.getElementById('fwTfQ'))return;
+    document.getElementById('fwTfQ').textContent=`Statement ${fwTfIdx+1}/10: ${q.q}`;
+    document.getElementById('fwTfScore').textContent=fwTfCorrect;
+    document.getElementById('fwTfFeedback').textContent='Is this TRUE or FALSE?';
+    document.getElementById('fwTfFeedback').className='game-feedback info';
+    document.getElementById('fwTfTrue').disabled=false;
+    document.getElementById('fwTfFalse').disabled=false;
+  }
+  function answerFwTf(val){
+    const q=fwTfQuestions[fwTfIdx];
+    document.getElementById('fwTfTrue').disabled=true;
+    document.getElementById('fwTfFalse').disabled=true;
+    const fb=document.getElementById('fwTfFeedback');
+    if(val===q.ans){fwTfCorrect++;addXP(10);fb.textContent='✅ '+q.exp;fb.className='game-feedback success';}
+    else{fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('fwTfScore').textContent=fwTfCorrect;
+    setTimeout(()=>{if(fwTfIdx<fwTfQuestions.length-1){fwTfIdx++;renderFwTf();}else{fb.textContent=`🎉 Finished! Score: ${fwTfCorrect}/10. ${fwTfCorrect>=8?'Food Web Expert! 🕸️':fwTfCorrect>=5?'Good understanding! 👍':'Keep learning! 📚'}`;fb.className='game-feedback success';}},2000);
+  }
+
+  // ═══════════════ FOOD WEB REBUS ═══════════════
+  const fwRebuses=[
+    {fragments:[{e:'🦊',l:'FOOD'},{op:'+'},{e:'🕸️',l:'WEB'}],answer:'FOOD WEB',breakdown:'FOOD + WEB = FOOD WEB',explain:'A food web is an interconnected network of multiple food chains showing realistic feeding relationships in an ecosystem. More complex than a food chain!'},
+    {fragments:[{e:'🗝️',l:'KEY'},{op:'+'},{e:'🪨',l:'STONE'},{op:'+'},{e:'🌟',l:'SPECIES'}],answer:'KEYSTONE SPECIES',breakdown:'KEY + STONE + SPECIES',explain:'A keystone species has a disproportionately large impact on its ecosystem. Remove it and the whole web collapses! e.g., Sea otters, Wolves, Bees.'},
+    {fragments:[{e:'🌊',l:'TROPHIC'},{op:'+'},{e:'⛰️',l:'CASCADE'}],answer:'TROPHIC CASCADE',breakdown:'TROPHIC + CASCADE',explain:'A trophic cascade is when a change at one level ripples through the entire food web. Wolves returning to Yellowstone changed the course of rivers!'},
+  ];
+  let fwRebusIdx=0;
+  function initFwRebus(){fwRebusIdx=0;renderFwRebus();}
+  function renderFwRebus(){
+    const r=fwRebuses[fwRebusIdx];
+    if(!document.getElementById('fwRebusArea'))return;
+    document.getElementById('fwRebusNum').textContent=fwRebusIdx+1;
+    document.getElementById('fwRebusReveal').className='rebus-answer-reveal';
+    let html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+    r.fragments.forEach(f=>{if(f.op){html+=`<div class="rebus-plus">${f.op}</div>`;}else{html+=`<div class="rebus-fragment"><div class="rf-emoji">${f.e}</div><small style="font-size:0.7rem;color:var(--text-muted)">${f.l}</small></div>`;}});
+    html+=`</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 It's a key ecology concept (${r.answer.length} letters)</div></div>`;
+    document.getElementById('fwRebusArea').innerHTML=html;
+  }
+  function showFwRebus(){
+    const r=fwRebuses[fwRebusIdx];
+    const rev=document.getElementById('fwRebusReveal');
+    rev.className='rebus-answer-reveal show';
+    rev.innerHTML=`<div class="rar-word">🎉 ${r.answer}</div><div class="rar-breakdown">${r.breakdown}</div><div class="rar-explain">${r.explain}</div>`;
+    addXP(20);
+  }
+  function nextFwRebus(){fwRebusIdx=(fwRebusIdx+1)%fwRebuses.length;renderFwRebus();}
+
+  // ═══════════════ SUCCESSION ORDER PUZZLE ═══════════════
+  const successionOrders=[
+    {title:"Primary Succession — Bare Rock to Forest",items:["🪨 Bare Rock","🟢 Lichens (Pioneer)","🌿 Mosses","🌱 Herbs & Grasses","🌳 Shrubs","🌲 Climax Forest"],explain:"Primary succession begins on bare rock. Lichens (pioneers) break down rock to form thin soil. Then mosses, herbs, shrubs colonize until a stable climax forest forms. Takes 1000s of years!"},
+    {title:"Secondary Succession — After Forest Fire",items:["🔥 Disturbance (Fire)","🌱 Annual Weeds","🌿 Perennial Herbs","🌳 Shrubs","🌲 Young Trees","🏞️ Climax Forest"],explain:"Secondary succession is faster because soil already exists! After a fire, annual weeds appear first, then herbs, shrubs, and finally the forest regenerates. Takes decades to centuries. Example: Yellowstone 1988!"},
+  ];
+  let succOrderIdx=0,succUserOrder=[],succCorrectItems=[];
+  function initSuccOrder(){succOrderIdx=0;renderSuccOrder();}
+  function renderSuccOrder(){
+    const s=successionOrders[succOrderIdx];
+    if(!document.getElementById('succOrderSource'))return;
+    succCorrectItems=[...s.items];succUserOrder=[];
+    document.getElementById('succOrderTitle').textContent=s.title;
+    const dz=document.getElementById('succOrderDropZone');
+    dz.innerHTML='<div style="color:var(--text-muted);font-size:0.85rem;">Click items below in order →</div>';
+    const src=document.getElementById('succOrderSource');src.innerHTML='';
+    const shuffled=[...s.items].sort(()=>Math.random()-0.5);
+    shuffled.forEach(item=>{const div=document.createElement('div');div.className='op-item';div.textContent=item;div.onclick=()=>succPickItem(item,div);src.appendChild(div);});
+    document.getElementById('succOrderFeedback').textContent='Click the items in the correct succession order!';document.getElementById('succOrderFeedback').className='game-feedback info';
+    document.getElementById('succOrderCheck').style.display='none';
+    document.getElementById('succOrderNext').style.display='none';
+  }
+  function succPickItem(item,el){
+    if(el.classList.contains('placed')){
+      succUserOrder=succUserOrder.filter(i=>i!==item);el.classList.remove('placed');
+      const dz=document.getElementById('succOrderDropZone');
+      [...dz.querySelectorAll('.op-item')].forEach(c=>{if(c.textContent===item)c.remove();});
+      if(succUserOrder.length===0)dz.innerHTML='<div style="color:var(--text-muted);font-size:0.85rem;">Click items below in order →</div>';
+    }else{
+      succUserOrder.push(item);el.classList.add('placed');
+      const dz=document.getElementById('succOrderDropZone');
+      const first=dz.querySelector('div[style]');if(first)first.remove();
+      const span=document.createElement('div');span.className='op-item placed';span.textContent=item;span.onclick=()=>succPickItem(item,el);dz.appendChild(span);
+      if(succUserOrder.length===succCorrectItems.length)document.getElementById('succOrderCheck').style.display='inline-block';
+    }
+  }
+  function checkSuccOrder(){
+    const correct=JSON.stringify(succUserOrder)===JSON.stringify(succCorrectItems);
+    const fb=document.getElementById('succOrderFeedback');const s=successionOrders[succOrderIdx];
+    if(correct){fb.textContent='🎉 Perfect! '+s.explain;fb.className='game-feedback success';addXP(30);document.getElementById('succOrderDropZone').querySelectorAll('.op-item').forEach(el=>el.classList.add('correct-place'));if(succOrderIdx<successionOrders.length-1)document.getElementById('succOrderNext').style.display='inline-block';}
+    else{fb.textContent='❌ Not quite right! Think: what happens FIRST in succession? Reset and try again.';fb.className='game-feedback error';}
+  }
+  function nextSuccOrder(){succOrderIdx++;renderSuccOrder();}
+  function resetSuccOrder(){renderSuccOrder();}
+
+  // ═══════════════ SUCCESSION MCQ ═══════════════
+  const succMcqQuestions=[
+    {q:"Primary succession starts on:",opts:["Burned forest floor","Agricultural land","Bare rock with no soil","Abandoned farmland"],ans:2,exp:"Primary succession begins on bare rock (or new lava flows) with NO soil present. Lichens are the pioneer species that slowly break down rock to create soil over centuries."},
+    {q:"What are 'pioneer species' in succession?",opts:["Final organisms to arrive","Large trees","First organisms to colonize a new environment","Migratory animals"],ans:2,exp:"Pioneer species (like lichens and mosses in primary succession) are the FIRST to colonize. They modify the environment to make it suitable for other organisms."},
+    {q:"Real Example: Krakatoa volcano erupted in 1883. What type of succession occurred on the new lava islands?",opts:["Secondary succession","Primary succession","Reverse succession","No succession"],ans:1,exp:"Primary succession! The new volcanic islands had no soil. Within 3 years, algae appeared. Within 25 years, forests with birds colonized. Today it's a lush tropical island!"},
+    {q:"Secondary succession is FASTER than primary because:",opts:["Rainfall is higher","Soil already exists","More sunlight is available","Animals help it"],ans:1,exp:"Soil already exists in secondary succession! Since building soil from rock is the slowest step, secondary succession (on existing soil) is much faster — decades vs. thousands of years."},
+    {q:"A 'climax community' is:",opts:["The first stage of succession","An unstable community","A stable, self-sustaining final community","A pioneer community"],ans:2,exp:"A climax community is the final, stable stage of ecological succession. It maintains itself indefinitely unless disturbed. Example: a mature tropical rainforest or oak forest."},
+    {q:"The 1988 Yellowstone fire led to which type of succession?",opts:["Primary succession","Reverse succession","Secondary succession","No succession occurred"],ans:2,exp:"Secondary succession! The fire cleared the forest but left soil intact. Within years, grasses appeared; within decades, forests are regenerating. Yellowstone is a perfect real-world case study!"},
+  ];
+  let succMcqIdx=0,succMcqCorrect=0;
+  function initSuccMcq(){succMcqIdx=0;succMcqCorrect=0;renderSuccMcq();}
+  function renderSuccMcq(){
+    const q=succMcqQuestions[succMcqIdx];
+    if(!document.getElementById('succMcqQ'))return;
+    document.getElementById('succMcqQ').textContent=`Q${succMcqIdx+1}. ${q.q}`;
+    document.getElementById('succMcqNum').textContent=succMcqIdx+1;
+    document.getElementById('succMcqScore').textContent=succMcqCorrect;
+    document.getElementById('succMcqNextBtn').style.display='none';
+    const fb=document.getElementById('succMcqFeedback');fb.textContent='Choose the best answer!';fb.className='game-feedback info';
+    const opts=document.getElementById('succMcqOpts');opts.innerHTML='';
+    q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='mcq-opt';btn.textContent=o;btn.onclick=()=>answerSuccMcq(i,btn);opts.appendChild(btn);});
+  }
+  function answerSuccMcq(chosen,btn){
+    const q=succMcqQuestions[succMcqIdx];
+    document.querySelectorAll('#succMcqOpts .mcq-opt').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('succMcqFeedback');
+    if(chosen===q.ans){btn.classList.add('correct');succMcqCorrect++;addXP(15);fb.textContent='✅ '+q.exp;fb.className='game-feedback success';}
+    else{btn.classList.add('wrong');document.querySelectorAll('#succMcqOpts .mcq-opt')[q.ans].classList.add('correct');fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('succMcqScore').textContent=succMcqCorrect;
+    if(succMcqIdx<succMcqQuestions.length-1){document.getElementById('succMcqNextBtn').style.display='inline-block';}
+    else{setTimeout(()=>{fb.textContent=`🎉 Succession Expert! Score: ${succMcqCorrect}/6. ${succMcqCorrect>=5?'Outstanding! 🌲':succMcqCorrect>=3?'Good! 👍':'Study more! 📚'}`;fb.className='game-feedback success';},500);}
+  }
+  function succMcqNext(){succMcqIdx++;renderSuccMcq();}
+
+  // ═══════════════ TERRESTRIAL MCQ ═══════════════
+  const terrMcqQuestions=[
+    {q:"Which ecosystem is called the 'Lungs of the Earth'?",opts:["Grassland","Desert","Rainforest","Ocean"],ans:2,exp:"Tropical Rainforests (especially the Amazon) are called the 'Lungs of the Earth' because they produce ~20% of Earth's oxygen and absorb massive amounts of CO₂."},
+    {q:"Real Fact: How many trees are cut down every year globally?",opts:["1 billion","5 billion","15 billion","100 million"],ans:2,exp:"15 BILLION trees are cut down every year! That's about 46% more than are replanted. The Amazon alone loses the size of a football pitch every minute."},
+    {q:"Which Indian desert is located in Rajasthan?",opts:["Gobi Desert","Sahara Desert","Thar Desert","Antarctic Desert"],ans:2,exp:"The Thar Desert! It covers parts of Rajasthan, Gujarat, and extends into Pakistan. One of the most populated desert regions in the world with unique species like the Indian Spiny-tailed lizard."},
+    {q:"The Savanna grassland is famous for:",opts:["Dense tree cover","The world's largest animal migration","Very low rainfall","Polar bears"],ans:1,exp:"The African Savanna hosts the Great Migration — 1.5 million wildebeest, 200,000 zebras, and 350,000 gazelles migrate seasonally. The largest land migration on Earth!"},
+    {q:"Which is a correct food chain for a Forest Ecosystem?",opts:["Tiger→Deer→Grass","Grass→Deer→Tiger","Deer→Grass→Tiger","Tiger→Grass→Deer"],ans:1,exp:"Grass→Deer→Tiger is a classic forest food chain. It follows the rule: Producer→Primary Consumer→Secondary Consumer (Apex)."},
+    {q:"Tropical rainforests cover about what % of Earth's land surface?",opts:["2%","7%","20%","35%"],ans:1,exp:"Just 7% of Earth's land! Yet tropical rainforests hold over 50% of all species on Earth. The Amazon alone has 40,000 plant species and 3 million+ animal species."},
+    {q:"Which adaptation helps desert animals survive extreme heat?",opts:["Migration to cold areas","Being nocturnal (active at night)","Growing larger bodies","Having dark-colored skin"],ans:1,exp:"Being nocturnal! Desert animals like the fennec fox, sand cat, and scorpions are active at night when temperatures cool. This avoids the deadly daytime heat of 50°C+ in deserts."},
+    {q:"What is the forest floor layer characterized by?",opts:["Maximum sunlight","Tallest trees","Low light, moist conditions, decomposers","No life"],ans:2,exp:"The forest floor gets less than 2% of sunlight! It's dark, moist, and dominated by decomposers (fungi, bacteria, earthworms) that break down leaf litter and recycle nutrients."},
+    {q:"A camel's hump stores:",opts:["Water","Fat","Blood","Salt"],ans:1,exp:"Fat! A camel's hump stores fat (not water!) as an energy reserve. When food is scarce, fat breaks down and provides both energy and metabolic water. Camels can go 7-10 days without water!"},
+    {q:"India's Western Ghats is classified as:",opts:["A desert","A biodiversity hotspot","A polar ecosystem","An aquatic ecosystem"],ans:1,exp:"The Western Ghats is one of 36 global biodiversity hotspots! It spans 1,600 km along India's west coast with 5,000+ plant species, 139 mammal species, and 508 bird species."},
+    {q:"The Sundarbans (West Bengal) is famous for:",opts:["Desert animals","World's largest mangrove forest and Royal Bengal Tiger","Alpine meadows","Coral reefs"],ans:1,exp:"Sundarbans is the world's largest mangrove forest (10,000 km²) and a UNESCO World Heritage Site. It's the largest habitat for the Royal Bengal Tiger and Irrawaddy dolphins!"},
+    {q:"Grasslands cover approximately what % of Earth's land surface?",opts:["10%","20%","40%","60%"],ans:2,exp:"Grasslands cover about 40% of Earth's land! They're crucial for agriculture — wheat, rice, corn (which feed 4 billion people) are all grasses. African Savanna hosts amazing megafauna."},
+  ];
+  let terrMcqIdx=0,terrMcqCorrect=0;
+  function initTerrMcq(){terrMcqIdx=0;terrMcqCorrect=0;renderTerrMcq();}
+  function renderTerrMcq(){
+    const q=terrMcqQuestions[terrMcqIdx];
+    if(!document.getElementById('terrMcqQ'))return;
+    document.getElementById('terrMcqQ').textContent=`Q${terrMcqIdx+1}. ${q.q}`;
+    document.getElementById('terrMcqNum').textContent=terrMcqIdx+1;
+    document.getElementById('terrMcqScore').textContent=terrMcqCorrect;
+    document.getElementById('terrMcqNextBtn').style.display='none';
+    const fb=document.getElementById('terrMcqFeedback');fb.textContent='Choose the best answer!';fb.className='game-feedback info';
+    const opts=document.getElementById('terrMcqOpts');opts.innerHTML='';
+    q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='mcq-opt';btn.textContent=o;btn.onclick=()=>answerTerrMcq(i,btn);opts.appendChild(btn);});
+  }
+  function answerTerrMcq(chosen,btn){
+    const q=terrMcqQuestions[terrMcqIdx];
+    document.querySelectorAll('#terrMcqOpts .mcq-opt').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('terrMcqFeedback');
+    if(chosen===q.ans){btn.classList.add('correct');terrMcqCorrect++;addXP(15);fb.textContent='✅ '+q.exp;fb.className='game-feedback success';}
+    else{btn.classList.add('wrong');document.querySelectorAll('#terrMcqOpts .mcq-opt')[q.ans].classList.add('correct');fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('terrMcqScore').textContent=terrMcqCorrect;
+    if(terrMcqIdx<terrMcqQuestions.length-1){document.getElementById('terrMcqNextBtn').style.display='inline-block';}
+    else{setTimeout(()=>{fb.textContent=`🎉 Terrestrial Expert! Score: ${terrMcqCorrect}/12. ${terrMcqCorrect>=10?'Outstanding! 🏆':terrMcqCorrect>=7?'Well done! 👍':'Keep exploring! 🌲'}`;fb.className='game-feedback success';},500);}
+  }
+  function terrMcqNext(){terrMcqIdx++;renderTerrMcq();}
+
+  // ═══════════════ AQUATIC MCQ ═══════════════
+  const aquaMcqQuestions=[
+    {q:"What percentage of Earth's surface is covered by oceans?",opts:["51%","61%","71%","81%"],ans:2,exp:"71% of Earth is covered by oceans! They regulate climate, produce 50% of Earth's oxygen (from phytoplankton), and host ~95% of Earth's living space."},
+    {q:"What is the deepest known point on Earth?",opts:["Mariana Trench (11,034 m)","Puerto Rico Trench (8,376 m)","Java Trench (7,258 m)","Tonga Trench (10,800 m)"],ans:0,exp:"The Mariana Trench in the Pacific Ocean reaches 11,034 m — deeper than Mount Everest is tall! First measured in 1875, it's the deepest known point on Earth."},
+    {q:"An estuary is where:",opts:["Two rivers meet","A river meets the ocean","A lake meets a sea","Underground water surfaces"],ans:1,exp:"An estuary is where a river meets the ocean, creating brackish (mixed salt+fresh) water. Estuaries are INCREDIBLY productive — more productive per unit area than tropical rainforests!"},
+    {q:"India's largest brackish water lake (Ramsar Wetland) is:",opts:["Dal Lake","Vembanad Lake","Chilika Lake","Wular Lake"],ans:2,exp:"Chilika Lake in Odisha is India's largest brackish water lagoon and Asia's largest coastal lagoon! It's a Ramsar Wetland, home to 150+ bird species including flamingos and Irrawaddy dolphins."},
+    {q:"Which aquatic ecosystem has the HIGHEST dissolved oxygen content?",opts:["Deep ocean zones","Still ponds","Fast-flowing mountain streams","Estuaries"],ans:2,exp:"Fast-flowing mountain streams have the highest dissolved oxygen! The constant turbulence at rocky rapids aerates the water, making it oxygen-rich. This is why trout and salmon thrive in streams."},
+    {q:"Phytoplankton in oceans produce approximately what % of Earth's oxygen?",opts:["10%","25%","50%","75%"],ans:2,exp:"50% of Earth's oxygen comes from phytoplankton (microscopic marine algae)! Every other breath you take comes from the ocean. This is why ocean health is critical to human survival."},
+    {q:"India's largest freshwater lake is:",opts:["Chilika Lake","Wular Lake","Dal Lake","Sambhar Lake"],ans:1,exp:"Wular Lake in Jammu & Kashmir is India's largest freshwater lake (covering up to 189 km²). Dal Lake is famous but much smaller. Wular is crucial for the ecology of the Kashmir valley."},
+    {q:"The term 'lentic' refers to:",opts:["Flowing water ecosystems","Still water ecosystems","Deep ocean zones","Mountain streams"],ans:1,exp:"Lentic = still/standing water! Lakes and ponds are lentic ecosystems. 'Lotic' is the term for flowing water (rivers and streams). Remember: Lentic = Lakes, Lotic = Lowing (flowing)!"},
+    {q:"Which aquatic ecosystem is considered the most PRODUCTIVE on Earth per unit area?",opts:["Deep ocean","Open sea","Estuaries","Arctic ocean"],ans:2,exp:"Estuaries are the most productive aquatic ecosystems per unit area! They receive nutrients from rivers + sunlight through shallow depth, supporting incredibly dense populations of fish and birds."},
+    {q:"The Gangetic dolphin (India's national aquatic animal) is remarkable because:",opts:["It's the world's largest dolphin","It's completely blind and uses echolocation","It can breathe underwater","It lives in saltwater"],ans:1,exp:"The Gangetic dolphin is functionally blind! It navigates the murky Ganga waters using echolocation. Listed as Endangered, it's India's national aquatic animal found in the Ganga-Brahmaputra river system."},
+  ];
+  let aquaMcqIdx=0,aquaMcqCorrect=0;
+  function initAquaMcq(){aquaMcqIdx=0;aquaMcqCorrect=0;renderAquaMcq();}
+  function renderAquaMcq(){
+    const q=aquaMcqQuestions[aquaMcqIdx];
+    if(!document.getElementById('aquaMcqQ'))return;
+    document.getElementById('aquaMcqQ').textContent=`Q${aquaMcqIdx+1}. ${q.q}`;
+    document.getElementById('aquaMcqNum').textContent=aquaMcqIdx+1;
+    document.getElementById('aquaMcqScore').textContent=aquaMcqCorrect;
+    document.getElementById('aquaMcqNextBtn').style.display='none';
+    const fb=document.getElementById('aquaMcqFeedback');fb.textContent='Choose the best answer!';fb.className='game-feedback info';
+    const opts=document.getElementById('aquaMcqOpts');opts.innerHTML='';
+    q.opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='mcq-opt';btn.textContent=o;btn.onclick=()=>answerAquaMcq(i,btn);opts.appendChild(btn);});
+  }
+  function answerAquaMcq(chosen,btn){
+    const q=aquaMcqQuestions[aquaMcqIdx];
+    document.querySelectorAll('#aquaMcqOpts .mcq-opt').forEach(b=>b.disabled=true);
+    const fb=document.getElementById('aquaMcqFeedback');
+    if(chosen===q.ans){btn.classList.add('correct');aquaMcqCorrect++;addXP(15);fb.textContent='✅ '+q.exp;fb.className='game-feedback success';}
+    else{btn.classList.add('wrong');document.querySelectorAll('#aquaMcqOpts .mcq-opt')[q.ans].classList.add('correct');fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+    document.getElementById('aquaMcqScore').textContent=aquaMcqCorrect;
+    if(aquaMcqIdx<aquaMcqQuestions.length-1){document.getElementById('aquaMcqNextBtn').style.display='inline-block';}
+    else{setTimeout(()=>{fb.textContent=`🎉 Aquatic Expert! Score: ${aquaMcqCorrect}/10. ${aquaMcqCorrect>=8?'Water World Master! 🌊':aquaMcqCorrect>=5?'Good diving! 🤿':'Keep exploring! 💧'}`;fb.className='game-feedback success';},500);}
+  }
+  function aquaMcqNext(){aquaMcqIdx++;renderAquaMcq();}
+
+  // ═══════════════ AQUATIC MATCH GAME ═══════════════
+  const aquaMatchData=[
+    {term:'Pond',desc:'Small, shallow, still water. Seasonal. High plant growth. Example: village talaabs'},
+    {term:'Stream',desc:'Small, fast-flowing water. HIGHEST dissolved oxygen. Example: Western Ghats hill streams'},
+    {term:'Lake',desc:'Large still water with deep zones. Example: Wular Lake (India) Dal Lake (J&K)'},
+    {term:'River',desc:'Large flowing water. Nutrient-rich. Example: Ganga, Brahmaputra, Amazon'},
+    {term:'Ocean',desc:'Covers 71% of Earth. Produces 50% O₂. Deepest: Mariana Trench (11,034 m)'},
+    {term:'Estuary',desc:'River meets ocean. Brackish water. MOST productive aquatic ecosystem! Example: Sundarbans'},
+  ];
+  let aquaMatchSelected=null,aquaMatchCorrect=0;
+  function initAquaMatch(){
+    aquaMatchSelected=null;aquaMatchCorrect=0;
+    if(!document.getElementById('aquaMatchLeft'))return;
+    document.getElementById('aquaMatchScore').textContent='0';
+    document.getElementById('aquaMatchFeedback').textContent='Match the aquatic ecosystem type to its description!';
+    document.getElementById('aquaMatchFeedback').className='game-feedback info';
+    const leftCol=document.getElementById('aquaMatchLeft');const rightCol=document.getElementById('aquaMatchRight');
+    leftCol.innerHTML='';rightCol.innerHTML='';
+    const shuffledRight=[...aquaMatchData].sort(()=>Math.random()-0.5);
+    aquaMatchData.forEach(item=>{const l=document.createElement('div');l.className='match-item';l.dataset.match=item.term;l.dataset.side='left';l.textContent=item.term;l.onclick=()=>aquaMatchClick(l);leftCol.appendChild(l);});
+    shuffledRight.forEach(item=>{const r=document.createElement('div');r.className='match-item';r.dataset.match=item.term;r.dataset.side='right';r.textContent=item.desc;r.onclick=()=>aquaMatchClick(r);rightCol.appendChild(r);});
+  }
+  function aquaMatchClick(el){
+    const fb=document.getElementById('aquaMatchFeedback');
+    if(el.classList.contains('matched'))return;
+    if(!aquaMatchSelected){
+      if(el.dataset.side==='left'){aquaMatchSelected=el;el.classList.add('selected');}
+    }else{
+      if(el.dataset.side==='right'){
+        if(aquaMatchSelected.dataset.match===el.dataset.match){aquaMatchSelected.classList.remove('selected');aquaMatchSelected.classList.add('matched');el.classList.add('matched');aquaMatchCorrect++;document.getElementById('aquaMatchScore').textContent=aquaMatchCorrect;addXP(15);fb.textContent='✅ Correct match!';fb.className='game-feedback success';if(aquaMatchCorrect===aquaMatchData.length){setTimeout(()=>{fb.textContent='🎉 All matched! You know all 6 aquatic ecosystem types! 🌊';fb.className='game-feedback success';},500);}}
+        else{fb.textContent='❌ Not a match! Try again.';fb.className='game-feedback error';aquaMatchSelected.classList.remove('selected');}
+        aquaMatchSelected=null;
+      }else{aquaMatchSelected.classList.remove('selected');aquaMatchSelected=el;el.classList.add('selected');}
+    }
+  }
+
+  // ═══════════════ AQUATIC REBUS ═══════════════
+  const aquaRebuses=[
+    {fragments:[{e:'🌊',l:'EST'},{op:'+'},{e:'🐮',l:'U'},{op:'+'},{e:'🌿',l:'ARY'}],answer:'ESTUARY',breakdown:'EST + U + ARY = ESTUARY',explain:"An estuary is where a freshwater river meets the salty ocean. It creates brackish water and is the most productive aquatic ecosystem! Indian example: Sundarbans & Chilika Lake."},
+    {fragments:[{e:'💧',l:'AQUA'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'AQUATIC',breakdown:'AQUA + TIC = AQUATIC',explain:"Aquatic ecosystems are water-based. They include freshwater (ponds, streams, lakes, rivers) and marine (oceans, estuaries). They cover 71% of Earth and support 50%+ of biodiversity!"},
+    {fragments:[{e:'🌿',l:'PHYTO'},{op:'+'},{e:'🔬',l:'PLANK'},{op:'+'},{e:'🦠',l:'TON'}],answer:'PHYTOPLANKTON',breakdown:'PHYTO + PLANK + TON = PHYTOPLANKTON',explain:"Phytoplankton are microscopic marine algae. They produce 50% of Earth's oxygen and form the base of all ocean food chains. Without them, ocean life would collapse!"},
+  ];
+  let aquaRebusIdx=0;
+  function initAquaRebus(){aquaRebusIdx=0;renderAquaRebus();}
+  function renderAquaRebus(){
+    const r=aquaRebuses[aquaRebusIdx];
+    if(!document.getElementById('aquaRebusArea'))return;
+    document.getElementById('aquaRebusNum').textContent=aquaRebusIdx+1;
+    document.getElementById('aquaRebusReveal').className='rebus-answer-reveal';
+    let html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+    r.fragments.forEach(f=>{if(f.op){html+=`<div class="rebus-plus">${f.op}</div>`;}else{html+=`<div class="rebus-fragment"><div class="rf-emoji">${f.e}</div><small style="font-size:0.7rem;color:var(--text-muted)">${f.l}</small></div>`;} });
+    html+=`</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 An aquatic ecology term (${r.answer.length} letters)</div></div>`;
+    document.getElementById('aquaRebusArea').innerHTML=html;
+  }
+  function showAquaRebus(){
+    const r=aquaRebuses[aquaRebusIdx];
+    const rev=document.getElementById('aquaRebusReveal');
+    rev.className='rebus-answer-reveal show';
+    rev.innerHTML=`<div class="rar-word">🎉 ${r.answer}</div><div class="rar-breakdown">${r.breakdown}</div><div class="rar-explain">${r.explain}</div>`;
+    addXP(20);
+  }
+  function nextAquaRebus(){aquaRebusIdx=(aquaRebusIdx+1)%aquaRebuses.length;renderAquaRebus();}
+
+  // ═══════════════ INITIALIZE ALL NEW GAMES ═══════════════
+  setTimeout(function(){
+    initEcoMcq();
+    initEcoRebus();
+    initFcMcq();
+    initFwTf();
+    initFwRebus();
+    initSuccOrder();
+    initSuccMcq();
+    initTerrMcq();
+    initAquaMcq();
+    initAquaMatch();
+    initAquaRebus();
+  }, 300);
+
     })();
+
+    /* ═══════════════ EXPOSE NEW GAME FUNCTIONS TO GLOBAL SCOPE ═══════════════ */
+    /* All functions inside the IIFE above must be accessible from HTML onclick attrs */
+    window.ecoMcqNext = function(){if(typeof ecoMcqIdx!=='undefined'){ecoMcqIdx++;renderEcoMcq();}};
+    window.showRebusEco = function(){
+      const ecoRebuses=[{fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM = ECOSYSTEM',explain:'An ecosystem is a community of living (biotic) and non-living (abiotic) components interacting as a system.'},{fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:'Photosynthesis is the process by which green plants convert sunlight + CO₂ + water into glucose and oxygen.'},{fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER = PRODUCER',explain:'A Producer (autotroph) makes its own food using photosynthesis — the base of all food chains.'},{fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC = BIOTIC',explain:'Biotic means living. All plants, animals, fungi, and bacteria in an ecosystem are biotic components.'}];
+      var idx=parseInt(document.getElementById('rebusEcoNum').textContent||'1')-1;
+      var r=ecoRebuses[idx];
+      var rev=document.getElementById('rebusEcoReveal');
+      rev.className='rebus-answer-reveal show';
+      rev.innerHTML='<div class="rar-word">🎉 '+r.answer+'</div><div class="rar-breakdown">'+r.breakdown+'</div><div class="rar-explain">'+r.explain+'</div>';
+      if(typeof addXP!=='undefined')addXP(20);
+    };
+    window.nextRebusEco = function(){
+      var n=parseInt(document.getElementById('rebusEcoNum').textContent||'1');
+      n=(n%4)+1;document.getElementById('rebusEcoNum').textContent=n;
+      var ecoRebuses=[{fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM',explain:''},{fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:''},{fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER',explain:''},{fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC',explain:''}];
+      var r=ecoRebuses[n-1];
+      document.getElementById('rebusEcoReveal').className='rebus-answer-reveal';
+      var html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+      r.fragments.forEach(function(f){if(f.op){html+='<div class="rebus-plus">'+f.op+'</div>';}else{html+='<div class="rebus-fragment"><div class="rf-emoji">'+f.e+'</div><small style="font-size:0.7rem;color:var(--text-muted)">'+f.l+'</small></div>';} });
+      html+='</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 Hint: It\'s a key ecosystem term ('+r.answer.length+' letters)</div></div>';
+      document.getElementById('rebusEcoArea').innerHTML=html;
+    };
+    window.fcMcqNext = function(){if(typeof fcMcqIdx!=='undefined'){fcMcqIdx++;renderFcMcq();}};
+    window.answerFwTf = function(val){
+      var fwTfQuestions=[{q:'A food web is more realistic than a food chain because most animals eat more than one type of food.',ans:true,exp:'TRUE! Real animals eat multiple food sources. A fox eats rabbits, mice, berries, and insects — food webs represent reality.'},{q:'Wolves were removed from Yellowstone and reintroduced in 1995, causing rivers to literally change course.',ans:true,exp:'TRUE! When 14 wolves returned in 1995, they changed elk behavior → vegetation recovered → beavers returned → rivers changed course!'},{q:'Removing a keystone species has no significant effect on the food web.',ans:false,exp:'FALSE! Removing a keystone species can COLLAPSE the entire web. Sea otters → urchins → kelp forest — all connected!'},{q:'A food web has more stability than a food chain because of multiple energy pathways.',ans:true,exp:'TRUE! If one species disappears in a web, energy can still flow through alternative pathways. More connections = more stability!'},{q:'Bees pollinate over 75% of the world\'s food crops.',ans:true,exp:'TRUE! Bees are a keystone pollinator species. Without them, 75% of flowering plants would disappear. Bee conservation is critical!'},{q:'A trophic cascade means changes at one level ONLY affect the level directly above or below.',ans:false,exp:'FALSE! Trophic cascades ripple through the ENTIRE food web. Removing wolves in Yellowstone affected plants, rivers, fish, birds — everything!'},{q:'All food webs start with producers at the base.',ans:true,exp:'TRUE! Phytoplankton in oceans, grass in grasslands, trees in forests — producers always form the foundation.'},{q:'Invasive species can disrupt existing food web connections.',ans:true,exp:'TRUE! Nile Perch introduced to Lake Victoria caused extinction of 200+ native fish species, destroying the food web in decades.'},{q:'Food webs are unaffected by climate change.',ans:false,exp:'FALSE! Climate change shifts species ranges and disrupts timing. When predator and prey are out of sync, food webs collapse.'},{q:'Phytoplankton produce 50% of Earth\'s oxygen.',ans:true,exp:'TRUE! Every other breath comes from the ocean. Phytoplankton produce more oxygen than all rainforests combined!'}];
+      var idx=window._fwTfIdx||0;
+      if(idx>=fwTfQuestions.length)return;
+      var q=fwTfQuestions[idx];
+      document.getElementById('fwTfTrue').disabled=true;
+      document.getElementById('fwTfFalse').disabled=true;
+      var fb=document.getElementById('fwTfFeedback');
+      var correct=window._fwTfCorrect||0;
+      if(val===q.ans){correct++;if(typeof addXP!=='undefined')addXP(10);fb.textContent='✅ '+q.exp;fb.className='game-feedback success';}
+      else{fb.textContent='❌ '+q.exp;fb.className='game-feedback error';}
+      window._fwTfCorrect=correct;
+      document.getElementById('fwTfScore').textContent=correct;
+      setTimeout(function(){
+        idx++; window._fwTfIdx=idx;
+        if(idx<fwTfQuestions.length){
+          document.getElementById('fwTfQ').textContent='Statement '+(idx+1)+'/10: '+fwTfQuestions[idx].q;
+          document.getElementById('fwTfFeedback').textContent='Is this TRUE or FALSE?';
+          document.getElementById('fwTfFeedback').className='game-feedback info';
+          document.getElementById('fwTfTrue').disabled=false;
+          document.getElementById('fwTfFalse').disabled=false;
+        }else{
+          fb.textContent='🎉 Finished! Score: '+correct+'/10. '+(correct>=8?'Food Web Expert! 🕸️':correct>=5?'Good understanding! 👍':'Keep learning! 📚');
+          fb.className='game-feedback success';
+        }
+      },2000);
+    };
+    (function(){var q=document.getElementById('fwTfQ');if(q)q.textContent='Statement 1/10: A food web is more realistic than a food chain because most animals eat more than one type of food.';window._fwTfIdx=0;window._fwTfCorrect=0;})();
+    window.showFwRebus = function(){
+      var fwRebuses=[{answer:'FOOD WEB',breakdown:'FOOD + WEB = FOOD WEB',explain:'A food web is an interconnected network of multiple food chains showing realistic feeding relationships in an ecosystem.'},{answer:'KEYSTONE SPECIES',breakdown:'KEY + STONE + SPECIES',explain:'A keystone species has a disproportionately large impact on its ecosystem. Remove it and the whole web collapses!'},{answer:'TROPHIC CASCADE',breakdown:'TROPHIC + CASCADE',explain:'A trophic cascade is when a change at one level ripples through the entire food web. Wolves returning to Yellowstone changed the course of rivers!'}];
+      var idx=parseInt(document.getElementById('fwRebusNum').textContent||'1')-1;
+      var r=fwRebuses[idx];
+      var rev=document.getElementById('fwRebusReveal');
+      rev.className='rebus-answer-reveal show';
+      rev.innerHTML='<div class="rar-word">🎉 '+r.answer+'</div><div class="rar-breakdown">'+r.breakdown+'</div><div class="rar-explain">'+r.explain+'</div>';
+      if(typeof addXP!=='undefined')addXP(20);
+    };
+    window.nextFwRebus = function(){
+      var n=parseInt(document.getElementById('fwRebusNum').textContent||'1');
+      n=(n%3)+1; document.getElementById('fwRebusNum').textContent=n;
+      document.getElementById('fwRebusReveal').className='rebus-answer-reveal';
+      var labels=[['🦊 FOOD','+','🕸️ WEB'],['🗝️ KEY','+','🪨 STONE','+','🌟 SPECIES'],['🌊 TROPHIC','+','⛰️ CASCADE']];
+      var html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+      labels[n-1].forEach(function(s){if(s==='+'){html+='<div class="rebus-plus">+</div>';}else{html+='<div class="rebus-fragment"><div class="rf-emoji">'+s.split(' ')[0]+'</div><small style="font-size:0.7rem;color:var(--text-muted)">'+s.split(' ').slice(1).join(' ')+'</small></div>';} });
+      html+='</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 Key ecology concept</div></div>';
+      document.getElementById('fwRebusArea').innerHTML=html;
+    };
+    window.checkSuccOrder = window.checkSuccOrder || function(){if(typeof checkSuccOrder==='function')checkSuccOrder();};
+    window.resetSuccOrder = window.resetSuccOrder || function(){if(typeof resetSuccOrder==='function')resetSuccOrder();};
+    window.nextSuccOrder = window.nextSuccOrder || function(){if(typeof nextSuccOrder==='function')nextSuccOrder();};
+    window.succMcqNext = function(){if(typeof succMcqIdx!=='undefined'){succMcqIdx++;renderSuccMcq();}};
+    window.terrMcqNext = function(){if(typeof terrMcqIdx!=='undefined'){terrMcqIdx++;renderTerrMcq();}};
+    window.aquaMcqNext = function(){if(typeof aquaMcqIdx!=='undefined'){aquaMcqIdx++;renderAquaMcq();}};
+    window.showAquaRebus = function(){
+      var aquaRebuses=[{answer:'ESTUARY',breakdown:'EST + U + ARY = ESTUARY',explain:'An estuary is where a freshwater river meets the salty ocean. Sundarbans & Chilika Lake are Indian examples!'},{answer:'AQUATIC',breakdown:'AQUA + TIC = AQUATIC',explain:'Aquatic ecosystems cover 71% of Earth and support 50%+ of biodiversity!'},{answer:'PHYTOPLANKTON',breakdown:'PHYTO + PLANK + TON',explain:'Phytoplankton produce 50% of Earth\'s oxygen and form the base of all ocean food chains!'}];
+      var idx=parseInt(document.getElementById('aquaRebusNum').textContent||'1')-1;
+      var r=aquaRebuses[idx];
+      var rev=document.getElementById('aquaRebusReveal');
+      rev.className='rebus-answer-reveal show';
+      rev.innerHTML='<div class="rar-word">🎉 '+r.answer+'</div><div class="rar-breakdown">'+r.breakdown+'</div><div class="rar-explain">'+r.explain+'</div>';
+      if(typeof addXP!=='undefined')addXP(20);
+    };
+    window.nextAquaRebus = function(){
+      var n=parseInt(document.getElementById('aquaRebusNum').textContent||'1');
+      n=(n%3)+1; document.getElementById('aquaRebusNum').textContent=n;
+      document.getElementById('aquaRebusReveal').className='rebus-answer-reveal';
+      var labels=[[['🌊','EST'],['+',''],[['🐮','U']],['+',''],[['🌿','ARY']]],[['💧','AQUA'],['+',''],[['🧬','TIC']]],[['🌿','PHYTO'],['+',''],[['🔬','PLANK'],['+',''],[['🦠','TON']]]]];
+      var emojis=[['🌊 EST','+','🐮 U','+','🌿 ARY'],['💧 AQUA','+','🧬 TIC'],['🌿 PHYTO','+','🔬 PLANK','+','🦠 TON']];
+      var html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
+      emojis[n-1].forEach(function(s){if(s==='+'){html+='<div class="rebus-plus">+</div>';}else{var parts=s.split(' ');html+='<div class="rebus-fragment"><div class="rf-emoji">'+parts[0]+'</div><small style="font-size:0.7rem;color:var(--text-muted)">'+parts.slice(1).join(' ')+'</small></div>';}});
+      html+='</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 An aquatic ecology term</div></div>';
+      document.getElementById('aquaRebusArea').innerHTML=html;
+    };
 
     /* ═══════════════ GAMIFICATION SYSTEM ═══════════════ */
     const GameState = {
