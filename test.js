@@ -81,34 +81,6 @@
   }
   function ecoMcqNext(){ecoMcqIdx++;renderEcoMcq();}
 
-  // ═══════════════ ECOSYSTEM REBUS ═══════════════
-  const ecoRebuses=[
-    {fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM = ECOSYSTEM',explain:'An ecosystem is a community of living (biotic) and non-living (abiotic) components interacting as a system. Term coined by Arthur Tansley in 1935.'},
-    {fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:'Photosynthesis is the process by which green plants convert sunlight + CO₂ + water into glucose and oxygen. Basis of all food chains!'},
-    {fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER = PRODUCER',explain:'A Producer (autotroph) makes its own food using photosynthesis. Plants, algae are producers — the base of all food chains.'},
-    {fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC = BIOTIC',explain:'Biotic means living. All plants, animals, fungi, and bacteria in an ecosystem are biotic components. The non-living parts are abiotic.'},
-  ];
-  let ecoRebusIdx=0;
-  function initEcoRebus(){ecoRebusIdx=0;renderEcoRebus();}
-  function renderEcoRebus(){
-    const r=ecoRebuses[ecoRebusIdx];
-    if(!document.getElementById('rebusEcoArea'))return;
-    document.getElementById('rebusEcoNum').textContent=ecoRebusIdx+1;
-    document.getElementById('rebusEcoReveal').className='rebus-answer-reveal';
-    let html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
-    r.fragments.forEach(f=>{if(f.op){html+=`<div class="rebus-plus">${f.op}</div>`;}else{html+=`<div class="rebus-fragment"><div class="rf-emoji">${f.e}</div><small style="font-size:0.7rem;color:var(--text-muted)">${f.l}</small></div>`;} });
-    html+=`</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 Hint: It's a key ecosystem term (${r.answer.length} letters)</div></div>`;
-    document.getElementById('rebusEcoArea').innerHTML=html;
-  }
-  function showRebusEco(){
-    const r=ecoRebuses[ecoRebusIdx];
-    const rev=document.getElementById('rebusEcoReveal');
-    rev.className='rebus-answer-reveal show';
-    rev.innerHTML=`<div class="rar-word">🎉 ${r.answer}</div><div class="rar-breakdown">${r.breakdown}</div><div class="rar-explain">${r.explain}</div>`;
-    addXP(20);
-  }
-  function nextRebusEco(){ecoRebusIdx=(ecoRebusIdx+1)%ecoRebuses.length;renderEcoRebus();}
-
   // ═══════════════ FOOD CHAIN MCQ ═══════════════
   const fcMcqQuestions=[
     {q:"A food chain ALWAYS starts with a:",opts:["Lion","Bacteria","Plant (Producer)","Snake"],ans:2,exp:"Food chains always start with producers (plants/algae) that convert sunlight into chemical energy through photosynthesis."},
@@ -430,7 +402,6 @@
   // ═══════════════ INITIALIZE ALL NEW GAMES ═══════════════
   setTimeout(function(){
     initEcoMcq();
-    initEcoRebus();
     initFcMcq();
     initFwTf();
     initFwRebus();
@@ -447,26 +418,6 @@
     /* ═══════════════ EXPOSE NEW GAME FUNCTIONS TO GLOBAL SCOPE ═══════════════ */
     /* All functions inside the IIFE above must be accessible from HTML onclick attrs */
     window.ecoMcqNext = function(){if(typeof ecoMcqIdx!=='undefined'){ecoMcqIdx++;renderEcoMcq();}};
-    window.showRebusEco = function(){
-      const ecoRebuses=[{fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM = ECOSYSTEM',explain:'An ecosystem is a community of living (biotic) and non-living (abiotic) components interacting as a system.'},{fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:'Photosynthesis is the process by which green plants convert sunlight + CO₂ + water into glucose and oxygen.'},{fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER = PRODUCER',explain:'A Producer (autotroph) makes its own food using photosynthesis — the base of all food chains.'},{fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC = BIOTIC',explain:'Biotic means living. All plants, animals, fungi, and bacteria in an ecosystem are biotic components.'}];
-      var idx=parseInt(document.getElementById('rebusEcoNum').textContent||'1')-1;
-      var r=ecoRebuses[idx];
-      var rev=document.getElementById('rebusEcoReveal');
-      rev.className='rebus-answer-reveal show';
-      rev.innerHTML='<div class="rar-word">🎉 '+r.answer+'</div><div class="rar-breakdown">'+r.breakdown+'</div><div class="rar-explain">'+r.explain+'</div>';
-      if(typeof addXP!=='undefined')addXP(20);
-    };
-    window.nextRebusEco = function(){
-      var n=parseInt(document.getElementById('rebusEcoNum').textContent||'1');
-      n=(n%4)+1;document.getElementById('rebusEcoNum').textContent=n;
-      var ecoRebuses=[{fragments:[{e:'🌿',l:'ECO'},{op:'+'},{e:'🔧',l:'SYS'},{op:'+'},{e:'⏱️',l:'TEM'}],answer:'ECOSYSTEM',breakdown:'ECO + SYS + TEM',explain:''},{fragments:[{e:'📸',l:'PHOTO'},{op:'+'},{e:'🔬',l:'SYN'},{op:'+'},{e:'🏠',l:'THESIS'}],answer:'PHOTOSYNTHESIS',breakdown:'PHOTO + SYN + THESIS',explain:''},{fragments:[{e:'🌱',l:'PRO'},{op:'+'},{e:'🎵',l:'DU'},{op:'+'},{e:'🎬',l:'CER'}],answer:'PRODUCER',breakdown:'PRO + DU + CER',explain:''},{fragments:[{e:'🌡️',l:'BIO'},{op:'+'},{e:'🧬',l:'TIC'}],answer:'BIOTIC',breakdown:'BIO + TIC',explain:''}];
-      var r=ecoRebuses[n-1];
-      document.getElementById('rebusEcoReveal').className='rebus-answer-reveal';
-      var html='<div class="rebus-puzzle-card"><div class="rebus-fragments">';
-      r.fragments.forEach(function(f){if(f.op){html+='<div class="rebus-plus">'+f.op+'</div>';}else{html+='<div class="rebus-fragment"><div class="rf-emoji">'+f.e+'</div><small style="font-size:0.7rem;color:var(--text-muted)">'+f.l+'</small></div>';} });
-      html+='</div><div class="rebus-equals">=</div><div class="rebus-question">?</div><div class="rebus-hint-text">💡 Hint: It\'s a key ecosystem term ('+r.answer.length+' letters)</div></div>';
-      document.getElementById('rebusEcoArea').innerHTML=html;
-    };
     window.fcMcqNext = function(){if(typeof fcMcqIdx!=='undefined'){fcMcqIdx++;renderFcMcq();}};
     window.answerFwTf = function(val){
       var fwTfQuestions=[{q:'A food web is more realistic than a food chain because most animals eat more than one type of food.',ans:true,exp:'TRUE! Real animals eat multiple food sources. A fox eats rabbits, mice, berries, and insects — food webs represent reality.'},{q:'Wolves were removed from Yellowstone and reintroduced in 1995, causing rivers to literally change course.',ans:true,exp:'TRUE! When 14 wolves returned in 1995, they changed elk behavior → vegetation recovered → beavers returned → rivers changed course!'},{q:'Removing a keystone species has no significant effect on the food web.',ans:false,exp:'FALSE! Removing a keystone species can COLLAPSE the entire web. Sea otters → urchins → kelp forest — all connected!'},{q:'A food web has more stability than a food chain because of multiple energy pathways.',ans:true,exp:'TRUE! If one species disappears in a web, energy can still flow through alternative pathways. More connections = more stability!'},{q:'Bees pollinate over 75% of the world\'s food crops.',ans:true,exp:'TRUE! Bees are a keystone pollinator species. Without them, 75% of flowering plants would disappear. Bee conservation is critical!'},{q:'A trophic cascade means changes at one level ONLY affect the level directly above or below.',ans:false,exp:'FALSE! Trophic cascades ripple through the ENTIRE food web. Removing wolves in Yellowstone affected plants, rivers, fish, birds — everything!'},{q:'All food webs start with producers at the base.',ans:true,exp:'TRUE! Phytoplankton in oceans, grass in grasslands, trees in forests — producers always form the foundation.'},{q:'Invasive species can disrupt existing food web connections.',ans:true,exp:'TRUE! Nile Perch introduced to Lake Victoria caused extinction of 200+ native fish species, destroying the food web in decades.'},{q:'Food webs are unaffected by climate change.',ans:false,exp:'FALSE! Climate change shifts species ranges and disrupts timing. When predator and prey are out of sync, food webs collapse.'},{q:'Phytoplankton produce 50% of Earth\'s oxygen.',ans:true,exp:'TRUE! Every other breath comes from the ocean. Phytoplankton produce more oxygen than all rainforests combined!'}];
